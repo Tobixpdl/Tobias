@@ -41,11 +41,9 @@
 }
 
 @media (max-width: 800px) {
-  .mascot-journey { position: absolute; z-index: 2; top: 155px; right: -26px; width: 46vw; min-width: 210px; height: 410px; transform: scale(.72); transform-origin: right top; }
-  .mascot-journey__badge { display: none; }
-  .hero__grid { display: block; min-height: auto; padding-top: 132px; padding-bottom: 100px; }
-  .hero__content { position: relative; z-index: 4; max-width: 78%; }
-  .hero__stage { position: absolute; top: 118px; right: -6%; width: 50%; min-height: 540px; opacity: .74; }
+  .hero__grid { min-height: auto; padding-top: 132px; padding-bottom: 96px; grid-template-columns: 1fr; }
+  .hero__content { max-width: 720px; }
+  .hero__stage { width: min(100%, 620px); min-height: 470px; margin: 8px auto 0; }
   .hero__scroll { display: none; }
   .section { padding-block: 105px; }
   .section-title { margin-bottom: 48px; }
@@ -82,9 +80,16 @@
   .hero__price { align-items: start; }
   .hero__price p { align-items: start; flex-direction: column; }
   .hero__note { margin-left: 33px; }
-  .hero__stage { display: none; }
-  .mascot-journey { display: none; }
-  .industries__track span { min-height: 62px; padding-inline: 20px; font-size: .82rem; }
+  .hero__stage { display: block; min-height: 370px; margin-top: 8px; }
+  .hero-blueprint { width: 96%; border-radius: 18px; transform: translate(-50%,-50%) perspective(1000px) rotateY(-3deg); }
+  .hero-blueprint__bar { height: 38px; }
+  .hero-blueprint__canvas { min-height: 290px; padding: 38px 28px 26px; }
+  .hero-blueprint__cards { margin-top: 30px; }
+  .stage-card { display: none; }
+  .stage-grid { inset: 4% -8%; }
+  .industries { padding-block: 22px 27px; }
+  .industries__intro p { display: none; }
+  .industry-badge { min-width: 165px; min-height: 53px; }
   .services__intro { display: block; }
   .services .section-title { margin-bottom: 40px; }
   .interface-panel { max-width: 390px; margin: 0 auto 35px; }
@@ -114,8 +119,7 @@
   .faq details p { padding-left: 46px; padding-right: 22px; }
   .contact { padding-block: 90px; }
   .contact__heading h2 { font-size: clamp(2.85rem,14vw,4.6rem); }
-  .contact__mobile-guide { position: relative; display: block; width: 118px; height: 148px; margin: -52px 0 18px auto; overflow: visible; }
-  .contact__mobile-guide .mascot-fallback { transform: translate(-50%, -50%) scale(.45); }
+  .contact__signal { top: 4%; right: -22px; width: 90px; height: 90px; opacity: .7; }
   .contact__layout { gap: 38px; }
   .contact__details { display: block; }
   .contact-form { padding: 24px 18px; }
@@ -143,6 +147,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .industries__track { animation: none; }
-  .mascot-journey { position: absolute; }
+  .industries-slider { gap: 8px; }
+  .contact__signal::before, .contact__signal::after { animation: none; }
 }

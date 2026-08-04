@@ -1,7 +1,10 @@
 .site-wrap {
   position: relative;
-  overflow: clip;
+  isolation: isolate;
+  overflow-x: clip;
 }
+
+main { position: relative; }
 
 .site-header {
   position: fixed;
@@ -109,6 +112,8 @@
   color: var(--white);
 }
 
+.main-nav__links a:hover::after { opacity: 1; transform: translateX(-50%) scale(1); }
+
 .main-nav__links a.is-active::after {
   opacity: 1;
   transform: translateX(-50%) scale(1);
@@ -195,10 +200,14 @@
 }
 
 .footer__links nav a {
+  position: relative;
   color: var(--muted);
   font-size: 0.9rem;
   transition: color 0.2s;
 }
+
+.footer__links nav a::after { position: absolute; right: 0; bottom: -4px; left: 0; height: 1px; background: var(--teal); content: ""; transform: scaleX(0); transform-origin: right; transition: transform .3s ease; }
+.footer__links nav a:hover::after { transform: scaleX(1); transform-origin: left; }
 
 .footer__links nav a:hover { color: var(--white); }
 

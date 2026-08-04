@@ -1,12 +1,28 @@
 import { ChevronDown, CircleDollarSign, ExternalLink, ShieldCheck } from "lucide-react";
-import { useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
+import { gsap } from "gsap";
 import { PlanCard } from "../../components/PlanCard/PlanCard";
 import { SectionTitle } from "../../components/SectionTitle/SectionTitle";
 import { additionalPlans, mainPlans } from "../../data/plans";
+import { useReducedMotion } from "../../hooks/useReducedMotion";
 
 export function Plans() {
   const [expanded, setExpanded] = useState(false);
+  const additional = useRef<HTMLDivElement>(null);
+  const reducedMotion = useReducedMotion();
   const toggleExpanded = () => setExpanded((current) => !current);
+
+  useLayoutEffect(() => {
+    if (!expanded || reducedMotion || !additional.current) return;
+    const context = gsap.context(() => {
+      gsap.fromTo(
+        ".plan-card",
+        { y: 38, rotateY: -7, opacity: 0, filter: "blur(7px)" },
+        { y: 0, rotateY: 0, opacity: 1, filter: "blur(0px)", duration: 0.68, stagger: 0.09, ease: "power3.out", clearProps: "transform,filter,opacity" },
+      );
+    }, additional);
+    return () => context.revert();
+  }, [expanded, reducedMotion]);
 
   return (
     <section className="plans section" id="planes" aria-labelledby="plans-title">
@@ -35,8 +51,16 @@ export function Plans() {
             <span><i />{expanded ? "Ocultar soluciones" : "Ver más soluciones"}</span>
             <ChevronDown aria-hidden="true" />
           </button>
-          <div id="additional-plans" className={`more-plans__content${expanded ? " is-open" : ""}`} aria-hidden={!expanded} inert={!expanded}>
-            <div className="more-plans__inner">
+          <div
+            id="additional-plans"
+            className={`more-plans__content${expanded ? " is-open" : ""}`}
+            aria-hidden={!expanded}
+            inert={!expanded}
+            onTransitionEnd={(event) => {
+              if (event.target === event.currentTarget) window.dispatchEvent(new Event("layout:changed"));
+            }}
+          >
+            <div ref={additional} className="more-plans__inner">
               <div className="plans__grid plans__grid--additional">
                 {additionalPlans.map((plan) => <PlanCard key={plan.id} plan={plan} compact focusDisabled={!expanded} />)}
               </div>

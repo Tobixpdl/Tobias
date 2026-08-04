@@ -10,7 +10,7 @@ export function PlanCard({ plan, compact, focusDisabled }: PlanCardProps) {
   const message = siteConfig.messages[plan.id];
 
   return (
-    <article className={`plan-card${plan.featured ? " plan-card--featured" : ""}${compact ? " plan-card--compact" : ""}`}>
+    <article className={`plan-card${plan.featured ? " plan-card--featured" : ""}${compact ? " plan-card--compact" : ""}`} data-tilt-card>
       <div className="plan-card__top">
         <span className="plan-card__label">{plan.label}</span>
         {plan.featured && <span className="plan-card__signal" aria-label="Plan destacado"><i /></span>}
@@ -18,7 +18,7 @@ export function PlanCard({ plan, compact, focusDisabled }: PlanCardProps) {
       <h3>{plan.name}</h3>
       <div className="plan-card__price">
         {plan.pricePrefix && <span>{plan.pricePrefix}</span>}
-        <strong>{formatPrice(plan.price)}</strong>
+        <strong data-counter-value={plan.price}>{formatPrice(plan.price)}</strong>
       </div>
       <ul className="plan-card__features">
         {plan.features.map((feature) => (

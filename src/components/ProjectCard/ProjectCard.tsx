@@ -5,7 +5,7 @@ type ProjectCardProps = { project: Project; index: number };
 
 export function ProjectCard({ project, index }: ProjectCardProps) {
   return (
-    <article className={`project-card project-card--${project.theme}`} data-project-index={index}>
+    <article className={`project-card project-card--${project.theme}`} data-project-index={index} data-tilt-card>
       <a className="project-card__link" href={project.url} target="_blank" rel="noopener noreferrer" aria-label={`Ver proyecto ${project.name} en una nueva pestaña`}>
         <div className="project-card__visual" aria-hidden="true">
           <div className="device device--desktop">

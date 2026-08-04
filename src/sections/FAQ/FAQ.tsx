@@ -21,7 +21,7 @@ export function FAQ() {
         </div>
         <div className="faq__list" data-reveal>
           {faqs.map(([question, answer], index) => (
-            <details key={question} open={index === 0}>
+            <details key={question} open={index === 0} onToggle={() => window.dispatchEvent(new Event("layout:changed"))}>
               <summary><span>{String(index + 1).padStart(2, "0")}</span>{question}<Plus aria-hidden="true" /></summary>
               <div><p>{answer}</p></div>
             </details>

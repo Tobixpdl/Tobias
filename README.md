@@ -1,6 +1,6 @@
 # Tobias Ponce de Leon — sitio profesional
 
-Sitio estático en React, TypeScript y Vite. Incluye animaciones con GSAP, mascota 3D liviana, portfolio, planes, preguntas frecuentes y formulario de contacto por WhatsApp.
+Sitio estático en React, TypeScript y Vite. Incluye animaciones con GSAP y ScrollTrigger, recorrido SVG con MotionPath, smooth scrolling con Lenis, portfolio, planes, preguntas frecuentes y formulario de contacto por WhatsApp.
 
 ## Ejecutar el proyecto
 
@@ -27,8 +27,9 @@ La marca, teléfono, WhatsApp, email, Instagram, dominio, precios, colores y men
 - Textos de cada sección: `src/sections/`.
 - Colores globales: `src/styles/base.css`.
 - Duración y entrada de animaciones: `src/hooks/useGsapContext.ts`.
-- Recorrido y poses de la mascota: `src/three/MascotExperience.tsx`.
-- Forma, materiales y colores de la mascota: `src/three/Mascot.tsx`.
+- Integración del scroll suave: `src/hooks/useLenis.ts`.
+- Recorrido visual: `src/components/ScrollJourney/ScrollJourney.tsx`.
+- Slider de rubros: `src/components/IndustriesSlider/IndustriesSlider.tsx`.
 
 ## Reemplazar imágenes del portfolio
 

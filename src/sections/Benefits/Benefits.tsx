@@ -19,7 +19,7 @@ export function Benefits() {
         </div>
         <div className="benefits__grid" data-stagger>
           {benefits.map(([Icon, title, text], index) => (
-            <article key={title} className={`benefit benefit--${index + 1}`}>
+            <article key={title} className={`benefit benefit--${index + 1}`} data-tilt-card>
               <Icon aria-hidden="true" />
               <h3>{title}</h3>
               <p>{text}</p>

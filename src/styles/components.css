@@ -1,4 +1,7 @@
 .button {
+  --magnet-x: 0px;
+  --magnet-y: 0px;
+  position: relative;
   display: inline-flex;
   min-height: 52px;
   padding: 0 22px;
@@ -8,14 +11,18 @@
   border: 1px solid transparent;
   border-radius: 12px;
   cursor: pointer;
+  overflow: hidden;
   font-size: 0.89rem;
   font-weight: 750;
   line-height: 1.1;
+  transform: translate3d(var(--magnet-x), var(--magnet-y), 0);
   transition: transform 0.22s ease, background 0.22s ease, color 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
 }
 
-.button svg { width: 18px; height: 18px; transition: transform 0.22s ease; }
-.button:hover { transform: translateY(-2px); }
+.button::before { position: absolute; inset: -40% auto -40% -55%; width: 32%; background: linear-gradient(90deg,transparent,rgba(255,255,255,.42),transparent); content: ""; pointer-events: none; transform: skewX(-18deg); transition: left .65s ease; }
+.button:hover::before { left: 125%; }
+.button svg { position: relative; z-index: 1; width: 18px; height: 18px; transition: transform 0.22s ease; }
+.button:hover { transform: translate3d(var(--magnet-x), calc(var(--magnet-y) - 2px), 0) scale(1.015); }
 .button:hover svg { transform: translate(2px, -2px); }
 .button--primary { color: #101621; background: var(--orange); box-shadow: 0 12px 32px rgba(255, 107, 53, 0.22); }
 .button--primary:hover { background: #ff8053; box-shadow: 0 16px 38px rgba(255, 107, 53, 0.3); }
@@ -52,9 +59,11 @@
   border: 1px solid var(--line-dark);
   border-radius: var(--radius);
   box-shadow: 0 30px 60px rgba(5, 11, 20, 0.14);
-  transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+  transition: translate 0.3s ease, border-color 0.3s ease, background 0.3s ease;
 }
-.plan-card:hover { border-color: rgba(46, 196, 182, 0.45); transform: translateY(-7px); }
+.plan-card::after, .benefit::after, .project-card::after { position: absolute; inset: 0; z-index: 5; background: radial-gradient(circle at var(--spot-x,50%) var(--spot-y,50%),rgba(255,255,255,.12),transparent 34%); border-radius: inherit; content: ""; opacity: 0; pointer-events: none; transition: opacity .3s; }
+.plan-card:hover::after, .benefit:hover::after, .project-card:hover::after { opacity: 1; }
+.plan-card:hover { border-color: rgba(46, 196, 182, 0.45); translate: 0 -7px; }
 .plan-card--featured { background: linear-gradient(145deg, #1b2e43, #102033); border-color: rgba(255, 107, 53, 0.57); }
 .plan-card--featured::before { position: absolute; inset: 8px 8px auto; height: 3px; background: var(--orange); border-radius: 4px; content: ""; }
 .plan-card__top { display: flex; min-height: 32px; align-items: center; justify-content: space-between; }
@@ -132,25 +141,3 @@
 .whatsapp-float svg { width: 23px; }
 .whatsapp-float__tooltip { position: absolute; right: calc(100% + 11px); width: max-content; padding: 8px 11px; color: var(--white); background: #08111e; border: 1px solid var(--line-dark); border-radius: 7px; font-size: .7rem; font-weight: 650; opacity: 0; pointer-events: none; transform: translateX(6px); transition: opacity .2s, transform .2s; }
 .whatsapp-float:hover .whatsapp-float__tooltip, .whatsapp-float:focus-visible .whatsapp-float__tooltip { opacity: 1; transform: none; }
-
-.mascot-journey { position: fixed; z-index: 2; top: 11vh; right: 2.5vw; width: min(42vw, 620px); height: min(74vh, 690px); pointer-events: none; transform-origin: center; will-change: transform; }
-.mascot-journey canvas { position: relative; z-index: 2; }
-.mascot-journey__halo { position: absolute; z-index: 0; inset: 11% 5% 8%; background: radial-gradient(circle, rgba(46,196,182,.13), rgba(255,107,53,.06) 38%, transparent 68%); border: 1px solid rgba(46,196,182,.13); border-radius: 49% 51% 55% 45%; transform: rotate(-8deg); }
-.mascot-journey__badge { position: absolute; z-index: 3; right: 2%; bottom: 12%; display: flex; padding: 9px 12px; align-items: center; gap: 7px; color: #c7d0db; background: rgba(14,23,38,.83); border: 1px solid var(--line-dark); border-radius: 99px; box-shadow: 0 12px 30px rgba(0,0,0,.16); font-size: .65rem; font-weight: 700; backdrop-filter: blur(12px); }
-.mascot-journey__badge span { width: 6px; height: 6px; background: var(--teal); border-radius: 50%; }
-.mascot-fallback { position: absolute; z-index: 2; top: 50%; left: 50%; width: 210px; height: 320px; transform: translate(-50%, -50%); filter: drop-shadow(0 24px 28px rgba(2,8,18,.3)); }
-.mascot-fallback__head { position: absolute; z-index: 3; top: 16px; left: 52px; display: flex; width: 106px; height: 92px; align-items: center; justify-content: center; gap: 22px; background: var(--cream); border-radius: 31px 31px 24px 24px; clip-path: polygon(13% 0, 87% 0, 100% 22%, 91% 100%, 9% 100%, 0 22%); }
-.mascot-fallback__head::before { position: absolute; width: 73px; height: 26px; background: var(--text-dark); border-radius: 8px; content: ""; }
-.mascot-fallback__head span { z-index: 1; width: 7px; height: 7px; background: var(--teal); border-radius: 50%; }
-.mascot-fallback__body { position: absolute; z-index: 1; top: 98px; left: 40px; width: 130px; height: 145px; background: var(--surface); border: 1px solid rgba(255,255,255,.08); border-radius: 36px 36px 22px 22px; }
-.mascot-fallback__body i { position: absolute; top: 35px; left: 50%; width: 28px; height: 28px; background: var(--orange); border-radius: 8px; transform: translateX(-50%) rotate(45deg); }
-.mascot-fallback__tablet { position: absolute; z-index: 4; top: 165px; left: 56px; width: 116px; height: 78px; padding: 19px 17px; background: #24364e; border: 3px solid #384c65; border-radius: 9px; transform: rotate(3deg); }
-.mascot-fallback__tablet::before { position: absolute; inset: 8px; background: var(--ink); border-radius: 4px; content: ""; }
-.mascot-fallback__tablet span { position: relative; z-index: 1; display: block; height: 4px; margin-bottom: 8px; background: var(--orange); border-radius: 4px; }
-.mascot-fallback__tablet span + span { width: 60%; background: var(--teal); }
-.mascot-fallback__arm { position: absolute; z-index: 2; top: 121px; width: 34px; height: 110px; background: var(--orange); border-radius: 20px; }
-.mascot-fallback__arm--left { left: 20px; transform: rotate(17deg); }
-.mascot-fallback__arm--right { right: 18px; transform: rotate(-20deg); }
-.mascot-fallback::before, .mascot-fallback::after { position: absolute; top: 225px; width: 45px; height: 88px; background: var(--text-dark); border-radius: 17px; content: ""; }
-.mascot-fallback::before { left: 53px; transform: rotate(3deg); }
-.mascot-fallback::after { right: 49px; transform: rotate(-3deg); }
