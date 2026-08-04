@@ -1,0 +1,148 @@
+@media (max-width: 1120px) {
+  :root { --shell: min(100% - 48px, 1040px); }
+  .main-nav { gap: 15px; }
+  .main-nav__links a { padding-inline: 9px; }
+  .hero__grid { grid-template-columns: minmax(0,1.08fr) minmax(340px,.92fr); }
+  .services__layout, .process__layout { gap: 6vw; }
+  .faq__layout { gap: 6vw; }
+  .project-card { min-width: calc(100vw - 96px); }
+  .payment-note { grid-template-columns: 55px 1fr; }
+  .payment-note ul { grid-column: 2; }
+}
+
+@media (max-width: 900px) {
+  .site-header { height: 78px; }
+  .menu-toggle { display: grid; position: relative; z-index: 2; }
+  .main-nav { position: fixed; inset: 0; display: flex; padding: 110px 24px 36px; flex-direction: column; align-items: stretch; justify-content: space-between; background: rgba(10,18,31,.98); opacity: 0; pointer-events: none; transform: translateY(-12px); transition: opacity .25s, transform .25s; }
+  .main-nav--open { opacity: 1; pointer-events: auto; transform: none; }
+  .main-nav__links { align-items: stretch; flex-direction: column; }
+  .main-nav__links a { min-height: 62px; padding-inline: 0; justify-content: start; border-bottom: 1px solid var(--line-dark); font-family: var(--font-display); font-size: 1.4rem; }
+  .main-nav__links a::after { display: none; }
+  .main-nav__cta { width: 100%; }
+  .hero__grid { grid-template-columns: 1fr .66fr; }
+  .hero h1 { font-size: clamp(3.2rem, 8.2vw, 5.5rem); }
+  .hero__stage { min-height: 540px; }
+  .stage-card { display: none; }
+  .services__layout { grid-template-columns: 1fr; }
+  .services__intro { display: grid; grid-template-columns: 1.1fr .9fr; gap: 30px; align-items: end; }
+  .services .section-title { margin-bottom: 0; }
+  .plans__grid { gap: 12px; }
+  .plan-card { min-height: 620px; padding: 24px 20px; }
+  .plan-card h3 { font-size: 1.45rem; }
+  .plan-card__price strong { font-size: 2rem; }
+  .process__layout { grid-template-columns: 1fr 1fr; }
+  .project-card__link { min-height: 580px; grid-template-columns: 1.25fr .75fr; }
+  .project-card__content { padding: 35px 25px; }
+  .contact__layout { grid-template-columns: 1fr; }
+  .contact__details { display: grid; grid-template-columns: 1fr 1fr; gap: 0 24px; }
+  .contact__details > p { grid-column: 1/-1; }
+  .footer__top { grid-template-columns: 1fr; }
+  .footer__cta { justify-self: start; }
+}
+
+@media (max-width: 800px) {
+  .mascot-journey { position: absolute; z-index: 2; top: 155px; right: -26px; width: 46vw; min-width: 210px; height: 410px; transform: scale(.72); transform-origin: right top; }
+  .mascot-journey__badge { display: none; }
+  .hero__grid { display: block; min-height: auto; padding-top: 132px; padding-bottom: 100px; }
+  .hero__content { position: relative; z-index: 4; max-width: 78%; }
+  .hero__stage { position: absolute; top: 118px; right: -6%; width: 50%; min-height: 540px; opacity: .74; }
+  .hero__scroll { display: none; }
+  .section { padding-block: 105px; }
+  .section-title { margin-bottom: 48px; }
+  .plans__grid { grid-template-columns: 1fr; }
+  .plan-card { min-height: auto; }
+  .plan-card__features { grid-template-columns: 1fr 1fr; }
+  .plan-card--compact { min-height: auto; }
+  .payment-note { margin-top: 60px; }
+  .portfolio__header { align-items: start; flex-direction: column; }
+  .portfolio__header .section-title { margin-bottom: 0; }
+  .carousel-controls { margin-bottom: 35px; }
+  .project-card { min-width: calc(100vw - 48px); }
+  .project-card__link { min-height: 0; grid-template-columns: 1fr; }
+  .project-card__visual { min-height: 480px; }
+  .project-card__content { min-height: 340px; }
+  .faq__layout { grid-template-columns: 1fr; }
+  .faq__intro { position: static; }
+  .benefit { grid-column: span 6 !important; }
+}
+
+@media (max-width: 640px) {
+  :root { --shell: calc(100% - 32px); }
+  .section { padding-block: 84px; }
+  .brand__name { max-width: 150px; font-size: .8rem; line-height: 1.1; }
+  .hero { min-height: auto; }
+  .hero::before { mask-image: linear-gradient(to bottom,#000,transparent 90%); }
+  .hero__grid { padding-top: 115px; padding-bottom: 70px; }
+  .hero__content { max-width: none; }
+  .hero__eyebrow { max-width: calc(100% - 100px); align-items: start; border-radius: 12px; line-height: 1.4; }
+  .hero h1 { max-width: 94%; font-size: clamp(2.8rem, 14vw, 4.25rem); }
+  .hero__lead { max-width: 94%; }
+  .hero__actions { align-items: stretch; flex-direction: column; }
+  .hero__actions .button { width: 100%; }
+  .hero__price { align-items: start; }
+  .hero__price p { align-items: start; flex-direction: column; }
+  .hero__note { margin-left: 33px; }
+  .hero__stage { display: none; }
+  .mascot-journey { display: none; }
+  .industries__track span { min-height: 62px; padding-inline: 20px; font-size: .82rem; }
+  .services__intro { display: block; }
+  .services .section-title { margin-bottom: 40px; }
+  .interface-panel { max-width: 390px; margin: 0 auto 35px; }
+  .service-row { min-height: auto; padding: 22px 0; grid-template-columns: 31px 42px 1fr; gap: 12px; }
+  .service-row__arrow { display: none; }
+  .service-row__icon { width: 38px; height: 38px; }
+  .service-row p { font-size: .8rem; }
+  .section-title h2 { font-size: clamp(2.25rem,11vw,3.3rem); }
+  .plan-card__features { grid-template-columns: 1fr; }
+  .payment-note { padding: 25px 20px; grid-template-columns: 1fr; }
+  .payment-note ul { grid-column: auto; }
+  .process__layout { grid-template-columns: 1fr; }
+  .process__sticky { position: static; }
+  .process__steps li { min-height: 108px; }
+  .portfolio__header { gap: 28px; }
+  .portfolio__track { padding-inline: 16px; gap: 12px; }
+  .project-card { min-width: calc(100vw - 32px); border-radius: 22px; }
+  .project-card__visual { min-height: 350px; }
+  .project-card__content { min-height: 310px; padding: 30px 23px; }
+  .project-card h3 { font-size: 2.35rem; }
+  .device--desktop { width: 82%; }
+  .device--mobile { right: 3%; width: 25%; }
+  .benefits__grid { grid-template-columns: 1fr; }
+  .benefit { min-height: 200px; grid-column: auto !important; }
+  .benefit h3 { margin-top: 42px; }
+  .faq summary { grid-template-columns: 34px 1fr 24px; font-size: .9rem; }
+  .faq details p { padding-left: 46px; padding-right: 22px; }
+  .contact { padding-block: 90px; }
+  .contact__heading h2 { font-size: clamp(2.85rem,14vw,4.6rem); }
+  .contact__mobile-guide { position: relative; display: block; width: 118px; height: 148px; margin: -52px 0 18px auto; overflow: visible; }
+  .contact__mobile-guide .mascot-fallback { transform: translate(-50%, -50%) scale(.45); }
+  .contact__layout { gap: 38px; }
+  .contact__details { display: block; }
+  .contact-form { padding: 24px 18px; }
+  .form-grid { grid-template-columns: 1fr; }
+  .form-field--wide { grid-column: auto; }
+  .contact-form__footer { align-items: stretch; flex-direction: column; }
+  .contact-form__footer .button { width: 100%; }
+  .footer__top { padding-block: 56px 42px; }
+  .footer__links { align-items: start; flex-direction: column; gap: 28px; }
+  .footer__bottom { align-items: start; flex-direction: column; gap: 10px; }
+  .whatsapp-float { right: 14px; bottom: 14px; width: 54px; height: 54px; }
+  .whatsapp-float__tooltip { display: none; }
+}
+
+@media (max-width: 380px) {
+  :root { --shell: calc(100% - 24px); }
+  .brand__name { max-width: 120px; }
+  .hero h1 { font-size: 2.72rem; }
+  .button { padding-inline: 16px; }
+  .service-row { grid-template-columns: 27px 1fr; }
+  .service-row__icon { display: none; }
+  .project-card__visual { min-height: 300px; }
+  .project-card__content { min-height: 330px; }
+  .carousel-controls { width: 100%; justify-content: space-between; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .industries__track { animation: none; }
+  .mascot-journey { position: absolute; }
+}

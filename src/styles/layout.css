@@ -1,0 +1,224 @@
+.site-wrap {
+  position: relative;
+  overflow: clip;
+}
+
+.site-header {
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 92px;
+  border-bottom: 1px solid transparent;
+  transition: height 0.35s ease, background 0.35s ease, border-color 0.35s ease, backdrop-filter 0.35s ease;
+}
+
+.site-header--scrolled {
+  height: 76px;
+  border-color: var(--line-dark);
+  background: rgba(14, 23, 38, 0.83);
+  box-shadow: 0 10px 40px rgba(4, 10, 19, 0.13);
+  backdrop-filter: blur(18px);
+}
+
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+  min-height: 44px;
+  font-family: var(--font-display);
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: -0.035em;
+}
+
+.brand__mark {
+  position: relative;
+  display: grid;
+  width: 40px;
+  height: 40px;
+  place-items: center;
+  overflow: hidden;
+  color: var(--white);
+  background: var(--surface);
+  border: 1px solid var(--line-dark);
+  border-radius: 11px;
+  font-size: 1rem;
+}
+
+.brand__mark i {
+  position: absolute;
+  top: -9px;
+  right: -9px;
+  width: 19px;
+  height: 19px;
+  background: var(--orange);
+  border-radius: 50%;
+}
+
+.main-nav,
+.main-nav__links {
+  display: flex;
+  align-items: center;
+}
+
+.main-nav {
+  gap: 32px;
+}
+
+.main-nav__links {
+  gap: 4px;
+}
+
+.main-nav__links a {
+  position: relative;
+  display: grid;
+  min-height: 44px;
+  padding-inline: 14px;
+  place-items: center;
+  color: var(--muted);
+  font-size: 0.86rem;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.main-nav__links a::after {
+  position: absolute;
+  bottom: 5px;
+  left: 50%;
+  width: 4px;
+  height: 4px;
+  background: var(--orange);
+  border-radius: 50%;
+  content: "";
+  opacity: 0;
+  transform: translateX(-50%) scale(0);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.main-nav__links a:hover,
+.main-nav__links a.is-active {
+  color: var(--white);
+}
+
+.main-nav__links a.is-active::after {
+  opacity: 1;
+  transform: translateX(-50%) scale(1);
+}
+
+.menu-toggle {
+  display: none;
+  width: 46px;
+  height: 46px;
+  padding: 0;
+  color: var(--white);
+  background: var(--surface);
+  border: 1px solid var(--line-dark);
+  border-radius: 12px;
+  place-items: center;
+}
+
+.menu-toggle svg {
+  width: 21px;
+}
+
+.footer {
+  position: relative;
+  z-index: 3;
+  color: var(--white);
+  background: #09111e;
+  border-top: 1px solid var(--line-dark);
+}
+
+.footer__top {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  padding-block: 72px 58px;
+  border-bottom: 1px solid var(--line-dark);
+}
+
+.footer__brand p {
+  max-width: 390px;
+  margin: 24px 0 0;
+  color: var(--muted);
+}
+
+.footer__cta {
+  justify-self: end;
+}
+
+.footer__cta p {
+  margin-bottom: 8px;
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.footer__cta a {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  border-bottom: 1px solid var(--orange);
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 2.2vw, 2rem);
+  font-weight: 600;
+}
+
+.footer__cta svg {
+  color: var(--orange);
+}
+
+.footer__links,
+.footer__bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.footer__links {
+  padding-block: 32px;
+  border-bottom: 1px solid var(--line-dark);
+}
+
+.footer__links nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 26px;
+}
+
+.footer__links nav a {
+  color: var(--muted);
+  font-size: 0.9rem;
+  transition: color 0.2s;
+}
+
+.footer__links nav a:hover { color: var(--white); }
+
+.footer__social { display: flex; gap: 8px; }
+.footer__social a {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  border: 1px solid var(--line-dark);
+  border-radius: 50%;
+  transition: border-color 0.2s, background 0.2s;
+}
+.footer__social a:hover { border-color: var(--teal); background: rgba(46, 196, 182, 0.08); }
+.footer__social svg { width: 17px; }
+
+.footer__bottom {
+  padding-block: 24px 36px;
+  color: #798494;
+  font-size: 0.78rem;
+}
+
+.footer__bottom p { margin: 0; }
