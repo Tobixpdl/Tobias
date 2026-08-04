@@ -22,7 +22,7 @@ export function Contact() {
             <a href={whatsappUrl()} target="_blank" rel="noopener noreferrer"><MessageCircle aria-hidden="true" /><span>WhatsApp<strong>{siteConfig.phoneDisplay}</strong></span></a>
             <a href={`tel:+${siteConfig.whatsappNumber}`}><Phone aria-hidden="true" /><span>Teléfono<strong>{siteConfig.phoneDisplay}</strong></span></a>
             <a href={`mailto:${siteConfig.email}`}><Mail aria-hidden="true" /><span>Email<strong>{siteConfig.email}</strong></span></a>
-            <a href={siteConfig.instagram} target="_blank" rel="noopener noreferrer"><AtSign aria-hidden="true" /><span>Instagram<strong>@tobixpdl</strong></span></a>
+            <a href={siteConfig.instagram} target="_blank" rel="noopener noreferrer"><AtSign aria-hidden="true" /><span>Instagram<strong>{siteConfig.instagramDisplay}</strong></span></a>
           </aside>
           <ContactForm />
         </div>

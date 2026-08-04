@@ -5,7 +5,8 @@ export const siteConfig = {
   whatsappNumber: "5491131857044",
   email: "tobiasponcedeleon@hotmail.com.ar",
   instagram: "https://www.instagram.com/tobixpdl/",
-  domain: "https://tobiasponcedeleon.com.ar/",
+  instagramDisplay: "@tobixpdl",
+  domain: "https://tobias-ponce-web.micakunischiprof.chatgpt.site/",
   startingPrice: 42000,
   prices: {
     presence: 42000,
