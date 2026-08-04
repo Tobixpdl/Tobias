@@ -141,3 +141,8 @@
 .whatsapp-float svg { width: 23px; }
 .whatsapp-float__tooltip { position: absolute; right: calc(100% + 11px); width: max-content; padding: 8px 11px; color: var(--white); background: #08111e; border: 1px solid var(--line-dark); border-radius: 7px; font-size: .7rem; font-weight: 650; opacity: 0; pointer-events: none; transform: translateX(6px); transition: opacity .2s, transform .2s; }
 .whatsapp-float:hover .whatsapp-float__tooltip, .whatsapp-float:focus-visible .whatsapp-float__tooltip { opacity: 1; transform: none; }
+
+.motion-preference-toggle { position: fixed; z-index: 92; left: 24px; bottom: 24px; display: inline-flex; min-height: 46px; padding: 0 15px; align-items: center; gap: 8px; color: var(--white); background: rgba(9,17,30,.9); border: 1px solid rgba(248,250,252,.16); border-radius: 99px; box-shadow: 0 14px 34px rgba(2,10,18,.28); cursor: pointer; font-size: .7rem; font-weight: 700; backdrop-filter: blur(14px); transition: color .25s, background .25s, border-color .25s, transform .25s; }
+.motion-preference-toggle:hover { color: var(--ink); background: var(--teal); border-color: var(--teal); transform: translateY(-3px); }
+.motion-preference-toggle svg { width: 16px; height: 16px; color: var(--orange); transition: color .25s, transform .25s; }
+.motion-preference-toggle:hover svg { color: var(--ink); transform: rotate(10deg) scale(1.08); }

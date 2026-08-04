@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { Header } from "./components/Header/Header";
+import { MotionPreferenceToggle } from "./components/MotionPreferenceToggle/MotionPreferenceToggle";
 import { ScrollJourney } from "./components/ScrollJourney/ScrollJourney";
 import { WhatsAppButton } from "./components/WhatsAppButton/WhatsAppButton";
 import { useGsapContext } from "./hooks/useGsapContext";
@@ -36,6 +37,7 @@ export default function App() {
         <Contact />
       </main>
       <Footer />
+      <MotionPreferenceToggle />
       <WhatsAppButton />
     </div>
   );

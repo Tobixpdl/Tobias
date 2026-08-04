@@ -27,8 +27,9 @@
   position: absolute;
   top: 0;
   left: 0;
-  width: 28px;
-  height: 28px;
+  width: 34px;
+  height: 34px;
+  filter: drop-shadow(0 0 15px rgba(46,196,182,.8));
   will-change: transform;
 }
 
@@ -41,7 +42,7 @@
   background: radial-gradient(circle at 34% 28%,#fff 0 8%,#6ee7db 18%,#2ec4b6 42%,#0f8179 75%);
   border: 1px solid rgba(255,255,255,.58);
   border-radius: 38% 62% 56% 44%;
-  box-shadow: 0 0 0 8px rgba(46,196,182,.07),0 0 26px rgba(46,196,182,.62),0 8px 18px rgba(3,13,24,.25);
+  box-shadow: 0 0 0 9px rgba(46,196,182,.09),0 0 34px rgba(46,196,182,.82),0 8px 18px rgba(3,13,24,.25);
   will-change: transform;
 }
 
@@ -59,8 +60,17 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .scroll-journey__path { stroke-dasharray: none; opacity: .18; }
-  .journey-orb, .hero__aurora, .stage-orbit { display: none; }
-  .hero-blueprint::after { animation: none; }
-  [data-tilt-card] { transform: none !important; }
+  html:not(.motion-enabled) .scroll-journey__path { stroke-dasharray: none; opacity: .18; }
+  html:not(.motion-enabled) .journey-orb,
+  html:not(.motion-enabled) .hero__aurora,
+  html:not(.motion-enabled) .stage-orbit { display: none; }
+  html:not(.motion-enabled) .hero-blueprint::after { animation: none; }
+  html:not(.motion-enabled) [data-tilt-card] { transform: none !important; }
 }
+
+html.motion-forced-reduced .scroll-journey__path { stroke-dasharray: none; opacity: .18; }
+html.motion-forced-reduced .journey-orb,
+html.motion-forced-reduced .hero__aurora,
+html.motion-forced-reduced .stage-orbit { display: none; }
+html.motion-forced-reduced .hero-blueprint::after { animation: none; }
+html.motion-forced-reduced [data-tilt-card] { transform: none !important; }

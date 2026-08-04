@@ -132,6 +132,8 @@
   .footer__bottom { align-items: start; flex-direction: column; gap: 10px; }
   .whatsapp-float { right: 14px; bottom: 14px; width: 54px; height: 54px; }
   .whatsapp-float__tooltip { display: none; }
+  .motion-preference-toggle { left: 14px; bottom: 14px; width: 48px; min-height: 48px; padding: 0; justify-content: center; }
+  .motion-preference-toggle span { display: none; }
 }
 
 @media (max-width: 380px) {
@@ -148,5 +150,6 @@
 
 @media (prefers-reduced-motion: reduce) {
   .industries-slider { gap: 8px; }
-  .contact__signal::before, .contact__signal::after { animation: none; }
+  html:not(.motion-enabled) .contact__signal::before,
+  html:not(.motion-enabled) .contact__signal::after { animation: none; }
 }
