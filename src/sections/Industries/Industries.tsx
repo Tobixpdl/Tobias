@@ -4,8 +4,8 @@ export function Industries() {
   return (
     <section className="industries" aria-label="Rubros con los que trabajo">
       <div className="industries__intro shell" data-reveal="split">
-        <span>Rubros que se mueven</span>
-        <p>Arrastrá para explorar</p>
+        <span>Una web para cada tipo de negocio</span>
+        <p>Se mueven solas · también podés arrastrar</p>
       </div>
       <IndustriesSlider />
     </section>

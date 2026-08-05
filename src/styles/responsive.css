@@ -5,7 +5,7 @@
   .hero__grid { grid-template-columns: minmax(0,1.08fr) minmax(340px,.92fr); }
   .services__layout, .process__layout { gap: 6vw; }
   .faq__layout { gap: 6vw; }
-  .project-card { min-width: calc(100vw - 96px); }
+  .project-card { flex-basis: calc(100vw - 96px); }
   .payment-note { grid-template-columns: 55px 1fr; }
   .payment-note ul { grid-column: 2; }
 }
@@ -31,8 +31,8 @@
   .plan-card h3 { font-size: 1.45rem; }
   .plan-card__price strong { font-size: 2rem; }
   .process__layout { grid-template-columns: 1fr 1fr; }
-  .project-card__link { min-height: 580px; grid-template-columns: 1.25fr .75fr; }
-  .project-card__content { padding: 35px 25px; }
+  .project-modal__panel { grid-template-columns: minmax(0,1fr) 330px; }
+  .project-modal__content { padding-inline: 34px; }
   .contact__layout { grid-template-columns: 1fr; }
   .contact__details { display: grid; grid-template-columns: 1fr 1fr; gap: 0 24px; }
   .contact__details > p { grid-column: 1/-1; }
@@ -55,10 +55,21 @@
   .portfolio__header { align-items: start; flex-direction: column; }
   .portfolio__header .section-title { margin-bottom: 0; }
   .carousel-controls { margin-bottom: 35px; }
-  .project-card { min-width: calc(100vw - 48px); }
-  .project-card__link { min-height: 0; grid-template-columns: 1fr; }
-  .project-card__visual { min-height: 480px; }
-  .project-card__content { min-height: 340px; }
+  .portfolio { min-height: auto; padding-bottom: 105px; }
+  .portfolio__viewport { height: 680px; }
+  .portfolio__track { gap: 32px; }
+  .project-card { flex-basis: calc(100vw - 48px); height: 620px; }
+  .project-card__wordmark { top: 84px; font-size: clamp(4.4rem,14vw,7rem); }
+  .device--desktop { top: 27%; left: 10%; width: 76%; }
+  .device--mobile { right: 5%; bottom: 12%; width: 21%; }
+  .project-card__feature--2 { right: 2%; }
+  .portfolio__navigation { grid-template-columns: 1fr auto; }
+  .portfolio__navigation > p { display: none; }
+  .project-modal { padding: 18px; }
+  .project-modal__panel { max-height: calc(100svh - 36px); grid-template-columns: 1fr; }
+  .project-modal__visual { min-height: 450px; }
+  .project-modal__content { min-height: 430px; padding: 44px 30px 34px; }
+  .project-modal__content .button { margin-top: 0; }
   .faq__layout { grid-template-columns: 1fr; }
   .faq__intro { position: static; }
   .benefit { grid-column: span 6 !important; }
@@ -89,7 +100,13 @@
   .stage-grid { inset: 4% -8%; }
   .industries { padding-block: 22px 27px; }
   .industries__intro p { display: none; }
-  .industry-badge { min-width: 165px; min-height: 53px; }
+  .industries-slider { gap: 15px; }
+  .industries-slider__lane { gap: 7px; }
+  .industry-badge { min-width: 190px; min-height: 59px; padding: 8px 15px 8px 8px; gap: 10px; border-radius: 15px; }
+  .industries-slider__lane--perks .industry-badge { min-width: 232px; }
+  .industry-badge__icon { width: 41px; height: 41px; border-radius: 11px; }
+  .industry-badge__icon svg { width: 18px; }
+  .industry-badge b { font-size: .78rem; }
   .services__intro { display: block; }
   .services .section-title { margin-bottom: 40px; }
   .interface-panel { max-width: 390px; margin: 0 auto 35px; }
@@ -105,13 +122,36 @@
   .process__sticky { position: static; }
   .process__steps li { min-height: 108px; }
   .portfolio__header { gap: 28px; }
-  .portfolio__track { padding-inline: 16px; gap: 12px; }
-  .project-card { min-width: calc(100vw - 32px); border-radius: 22px; }
-  .project-card__visual { min-height: 350px; }
-  .project-card__content { min-height: 310px; padding: 30px 23px; }
-  .project-card h3 { font-size: 2.35rem; }
-  .device--desktop { width: 82%; }
-  .device--mobile { right: 3%; width: 25%; }
+  .carousel-controls { width: 100%; margin-bottom: 18px; justify-content: space-between; }
+  .portfolio__viewport { height: 570px; }
+  .portfolio__track { gap: 20px; padding-block: 12px 18px; }
+  .project-card { flex-basis: calc(100vw - 32px); height: 525px; }
+  .project-card__trigger { border-radius: 24px; }
+  .project-card__number { top: 23px; right: 22px; }
+  .project-card__identity { top: 22px; left: 21px; }
+  .project-card__identity strong { max-width: 230px; font-size: .94rem; }
+  .project-card__wordmark { top: 72px; width: 96%; font-size: clamp(3.7rem,18vw,6rem); }
+  .device--desktop { top: 30%; left: 7%; width: 82%; transform: perspective(1000px) rotateY(-7deg) rotateZ(-1deg); }
+  .device--mobile { right: 3%; bottom: 15%; width: 23%; transform: perspective(1000px) rotateY(-10deg) rotateZ(3deg); }
+  .project-card__feature { padding: 7px 9px; font-size: .55rem; }
+  .project-card__feature--1 { top: 28%; left: 3%; }
+  .project-card__feature--2 { top: 48%; right: 1%; }
+  .project-card__feature--3 { display: none; }
+  .project-card__summary { bottom: 23px; left: 21px; max-width: 250px; }
+  .project-card__summary span { display: none; }
+  .project-card__open { right: 20px; bottom: 19px; width: 46px; height: 46px; }
+  .portfolio__navigation { margin-top: 6px; grid-template-columns: 1fr; gap: 18px; }
+  .carousel-dots { justify-content: center; }
+  .portfolio__autoplay { width: 90px; margin-inline: auto; }
+  .project-modal { padding: 10px; }
+  .project-modal__panel { max-height: calc(100svh - 20px); border-radius: 22px; }
+  .project-modal__visual { min-height: 350px; }
+  .project-modal__desktop { top: 17%; left: 5%; width: 88%; }
+  .project-modal__mobile { right: 2%; width: 23%; }
+  .project-modal__content { min-height: auto; padding: 38px 23px 27px; }
+  .project-modal__content h3 { font-size: 2.8rem; }
+  .project-modal__content ul { margin-block: 24px 28px; }
+  .project-modal__content .button { width: 100%; }
   .benefits__grid { grid-template-columns: 1fr; }
   .benefit { min-height: 200px; grid-column: auto !important; }
   .benefit h3 { margin-top: 42px; }
@@ -143,13 +183,18 @@
   .button { padding-inline: 16px; }
   .service-row { grid-template-columns: 27px 1fr; }
   .service-row__icon { display: none; }
-  .project-card__visual { min-height: 300px; }
-  .project-card__content { min-height: 330px; }
+  .portfolio__viewport { height: 520px; }
+  .project-card { flex-basis: calc(100vw - 24px); height: 480px; }
+  .project-card__identity strong { max-width: 185px; }
+  .project-card__wordmark { top: 68px; }
+  .project-card__summary { max-width: 210px; }
+  .project-modal__visual { min-height: 305px; }
   .carousel-controls { width: 100%; justify-content: space-between; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .industries-slider { gap: 8px; }
+  html:not(.motion-enabled) .portfolio__autoplay i { animation: none; transform: scaleX(1); }
   html:not(.motion-enabled) .contact__signal::before,
   html:not(.motion-enabled) .contact__signal::after { animation: none; }
 }

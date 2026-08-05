@@ -23,6 +23,9 @@ export function ScrollJourney() {
 
   useLayoutEffect(() => {
     if (!root.current || !path.current || !orb.current || !core.current || reducedMotion) return;
+    const startSection = document.getElementById("inicio");
+    const endSection = document.getElementById("contacto");
+    if (!startSection || !endSection) return;
     const pathElement = path.current;
     const orbElement = orb.current;
     const coreElement = core.current;
@@ -31,8 +34,8 @@ export function ScrollJourney() {
       const timeline = gsap.timeline({
         defaults: { ease: "none" },
         scrollTrigger: {
-          trigger: "#inicio",
-          endTrigger: "#contacto",
+          trigger: startSection,
+          endTrigger: endSection,
           start: "top top",
           end: "bottom bottom",
           invalidateOnRefresh: true,

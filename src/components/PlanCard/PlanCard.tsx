@@ -26,7 +26,7 @@ export function PlanCard({ plan, compact, focusDisabled }: PlanCardProps) {
         ))}
       </ul>
       <a className={`button ${plan.featured ? "button--primary" : "button--outline"}`} href={whatsappUrl(message)} target="_blank" rel="noopener noreferrer" tabIndex={focusDisabled ? -1 : undefined}>
-        {plan.cta}<ArrowUpRight aria-hidden="true" />
+        <span>{plan.cta}</span><ArrowUpRight aria-hidden="true" />
       </a>
     </article>
   );

@@ -1,7 +1,21 @@
 import {
+  BadgeDollarSign,
   BriefcaseBusiness,
+  Building2,
+  CalendarDays,
+  CalendarOff,
   Coffee,
+  CreditCard,
+  Gauge,
+  Globe2,
+  GraduationCap,
   Hammer,
+  HeartPulse,
+  Hotel,
+  MessageCircle,
+  MonitorSmartphone,
+  PlugZap,
+  Scissors,
   ShoppingBag,
   Store,
   Wrench,
@@ -11,24 +25,42 @@ import { type PointerEvent, useLayoutEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { useReducedMotion } from "../../hooks/useReducedMotion";
 
-type Industry = readonly [LucideIcon, string];
+type SliderItem = readonly [LucideIcon, string];
 
-const industries: Industry[] = [
+const industries: SliderItem[] = [
   [Coffee, "Gastronomía"],
   [Store, "Comercios"],
   [BriefcaseBusiness, "Profesionales"],
   [Hammer, "Oficios"],
   [Wrench, "Servicios"],
   [ShoppingBag, "Emprendimientos"],
+  [Building2, "Inmobiliarias"],
+  [HeartPulse, "Salud y bienestar"],
+  [GraduationCap, "Educación"],
+  [Hotel, "Turismo y hotelería"],
+  [Scissors, "Belleza y estética"],
+  [CalendarDays, "Eventos"],
+];
+
+const perks: SliderItem[] = [
+  [PlugZap, "Servicios externos"],
+  [CreditCard, "Integrá Mercado Pago"],
+  [BadgeDollarSign, "Abonás una única vez"],
+  [CalendarOff, "Sin mensualidad obligatoria"],
+  [MessageCircle, "Pedidos por WhatsApp"],
+  [MonitorSmartphone, "Responsive en todo dispositivo"],
+  [Gauge, "Carga rápida"],
+  [Globe2, "Tu propio dominio"],
 ];
 
 type MarqueeRowProps = {
-  items: Industry[];
+  items: SliderItem[];
   direction: "left" | "right";
-  decorative?: boolean;
+  label: string;
+  variant: "industries" | "perks";
 };
 
-function IndustryBadge({ industry: [Icon, label], hidden = false }: { industry: Industry; hidden?: boolean }) {
+function SliderBadge({ item: [Icon, label], hidden = false }: { item: SliderItem; hidden?: boolean }) {
   return (
     <span className="industry-badge" aria-hidden={hidden || undefined}>
       <i className="industry-badge__icon"><Icon aria-hidden="true" /></i>
@@ -38,8 +70,7 @@ function IndustryBadge({ industry: [Icon, label], hidden = false }: { industry: 
   );
 }
 
-function MarqueeRow({ items, direction, decorative }: MarqueeRowProps) {
-  const viewport = useRef<HTMLDivElement>(null);
+function MarqueeRow({ items, direction, label, variant }: MarqueeRowProps) {
   const track = useRef<HTMLDivElement>(null);
   const group = useRef<HTMLDivElement>(null);
   const position = useRef(direction === "left" ? 0 : -1);
@@ -62,8 +93,8 @@ function MarqueeRow({ items, direction, decorative }: MarqueeRowProps) {
       if (!track.current || pointer.current.active) return;
       const frame = gsap.ticker.deltaRatio(60);
       const waiting = performance.now() < pointer.current.resumeAt;
-      const autoFactor = waiting ? 0 : hovered.current ? 0.16 : 1;
-      const autoSpeed = (direction === "left" ? -0.58 : 0.58) * autoFactor * frame;
+      const autoFactor = waiting ? 0 : hovered.current ? 0.14 : 1;
+      const autoSpeed = (direction === "left" ? -0.48 : 0.44) * autoFactor * frame;
 
       if (Math.abs(pointer.current.velocity) > 0.02) {
         position.current += pointer.current.velocity * frame;
@@ -83,13 +114,7 @@ function MarqueeRow({ items, direction, decorative }: MarqueeRowProps) {
 
   function onPointerDown(event: PointerEvent<HTMLDivElement>) {
     if (event.pointerType === "mouse" && event.button !== 0) return;
-    pointer.current = {
-      active: true,
-      lastX: event.clientX,
-      lastTime: performance.now(),
-      velocity: 0,
-      resumeAt: Number.POSITIVE_INFINITY,
-    };
+    pointer.current = { active: true, lastX: event.clientX, lastTime: performance.now(), velocity: 0, resumeAt: Number.POSITIVE_INFINITY };
     event.currentTarget.setPointerCapture(event.pointerId);
     event.currentTarget.classList.add("is-dragging");
   }
@@ -108,39 +133,35 @@ function MarqueeRow({ items, direction, decorative }: MarqueeRowProps) {
 
   function onPointerUp(event: PointerEvent<HTMLDivElement>) {
     pointer.current.active = false;
-    pointer.current.resumeAt = performance.now() + 1100;
+    pointer.current.resumeAt = performance.now() + 1050;
     event.currentTarget.classList.remove("is-dragging");
-    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
-      event.currentTarget.releasePointerCapture(event.pointerId);
-    }
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId);
   }
 
   const repeatedItems = [...items, ...items];
 
   return (
-    <div
-      ref={viewport}
-      className={`industries-slider__row industries-slider__row--${direction}`}
-      aria-hidden={decorative || undefined}
-      onPointerDown={onPointerDown}
-      onPointerMove={onPointerMove}
-      onPointerUp={onPointerUp}
-      onPointerCancel={onPointerUp}
-      onMouseEnter={() => { hovered.current = true; }}
-      onMouseLeave={() => { hovered.current = false; }}
-    >
-      <div ref={track} className="industries-slider__track">
-        {[0, 1].map((groupIndex) => (
-          <div ref={groupIndex === 0 ? group : undefined} className="industries-slider__group" key={groupIndex}>
-            {repeatedItems.map((industry, index) => (
-              <IndustryBadge
-                key={`${industry[1]}-${groupIndex}-${index}`}
-                industry={industry}
-                hidden={decorative || groupIndex > 0 || index >= items.length}
-              />
-            ))}
-          </div>
-        ))}
+    <div className={`industries-slider__lane industries-slider__lane--${variant}`}>
+      <div className="industries-slider__lane-label"><span>{variant === "industries" ? "01" : "02"}</span>{label}</div>
+      <div
+        className={`industries-slider__row industries-slider__row--${direction}`}
+        aria-label={label}
+        onPointerDown={onPointerDown}
+        onPointerMove={onPointerMove}
+        onPointerUp={onPointerUp}
+        onPointerCancel={onPointerUp}
+        onMouseEnter={() => { hovered.current = true; }}
+        onMouseLeave={() => { hovered.current = false; }}
+      >
+        <div ref={track} className="industries-slider__track">
+          {[0, 1].map((groupIndex) => (
+            <div ref={groupIndex === 0 ? group : undefined} className="industries-slider__group" key={groupIndex}>
+              {repeatedItems.map((item, index) => (
+                <SliderBadge key={`${item[1]}-${groupIndex}-${index}`} item={item} hidden={groupIndex > 0 || index >= items.length} />
+              ))}
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
@@ -151,18 +172,23 @@ export function IndustriesSlider() {
 
   if (reducedMotion) {
     return (
-      <div className="industries-slider industries-slider--reduced" role="list">
-        {industries.map((industry) => <IndustryBadge key={industry[1]} industry={industry} />)}
+      <div className="industries-slider industries-slider--reduced">
+        <div className="industries-slider__lane">
+          <div className="industries-slider__lane-label"><span>01</span>Rubros</div>
+          <div className="industries-slider__static">{industries.map((item) => <SliderBadge key={item[1]} item={item} />)}</div>
+        </div>
+        <div className="industries-slider__lane industries-slider__lane--perks">
+          <div className="industries-slider__lane-label"><span>02</span>Lo que incluye tu web</div>
+          <div className="industries-slider__static">{perks.map((item) => <SliderBadge key={item[1]} item={item} />)}</div>
+        </div>
       </div>
     );
   }
 
-  const reversed = [...industries.slice(3), ...industries.slice(0, 3)];
-
   return (
-    <div className="industries-slider" aria-label="Rubros con los que trabajo">
-      <MarqueeRow items={industries} direction="left" />
-      <MarqueeRow items={reversed} direction="right" decorative />
+    <div className="industries-slider">
+      <MarqueeRow items={industries} direction="left" label="Rubros que pueden crecer con una web" variant="industries" />
+      <MarqueeRow items={perks} direction="right" label="Lo que puede incluir tu web" variant="perks" />
     </div>
   );
 }

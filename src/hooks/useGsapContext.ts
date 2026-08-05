@@ -157,27 +157,30 @@ export function useGsapContext(root: RefObject<HTMLElement | null>) {
         );
       }
 
-      gsap.utils.toArray<HTMLElement>(".project-card").forEach((card, index) => {
-        gsap.from(card, {
-          y: 70,
-          scale: 0.92,
-          rotate: index % 2 ? 1 : -1,
+      const portfolioViewport = root.current?.querySelector<HTMLElement>(".portfolio__viewport");
+      if (portfolioViewport) {
+        gsap.from(portfolioViewport, {
+          y: 65,
+          scale: 0.94,
           opacity: 0,
-          filter: "blur(9px)",
-          duration: 0.9,
+          filter: "blur(11px)",
+          duration: 1.05,
           ease: "power3.out",
           clearProps: "transform,filter,opacity",
-          scrollTrigger: { trigger: card, start: "top 90%", once: true },
+          scrollTrigger: { trigger: portfolioViewport, start: "top 88%", once: true },
         });
-        const visual = card.querySelector<HTMLElement>(".project-card__visual");
-        if (visual) {
-          gsap.fromTo(
-            visual,
-            { backgroundPosition: "50% 35%" },
-            { backgroundPosition: "50% 65%", ease: "none", scrollTrigger: { trigger: card, start: "top bottom", end: "bottom top", scrub: true } },
-          );
-        }
-      });
+        gsap.from(".portfolio__navigation > *, .carousel-controls > *", {
+          y: 18,
+          opacity: 0,
+          duration: 0.58,
+          stagger: 0.07,
+          ease: "power2.out",
+          clearProps: "transform,opacity",
+          scrollTrigger: { trigger: portfolioViewport, start: "top 82%", once: true },
+        });
+        gsap.to(".portfolio__ambient i:nth-child(1)", { rotate: 80, yPercent: -12, ease: "none", scrollTrigger: { trigger: ".portfolio", start: "top bottom", end: "bottom top", scrub: 1.2 } });
+        gsap.to(".portfolio__ambient i:nth-child(3)", { rotate: -70, yPercent: 10, ease: "none", scrollTrigger: { trigger: ".portfolio", start: "top bottom", end: "bottom top", scrub: 1.5 } });
+      }
 
       gsap.from(".faq details", {
         x: 42,
@@ -273,7 +276,7 @@ export function useGsapContext(root: RefObject<HTMLElement | null>) {
           });
         });
 
-        gsap.utils.toArray<HTMLElement>(".button").forEach((button) => {
+        gsap.utils.toArray<HTMLElement>(".button").filter((button) => !button.closest(".plan-card")).forEach((button) => {
           const moveX = gsap.quickSetter(button, "--magnet-x") as (value: string) => void;
           const moveY = gsap.quickSetter(button, "--magnet-y") as (value: string) => void;
           const onMove = (event: PointerEvent) => {
