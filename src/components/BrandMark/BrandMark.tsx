@@ -5,8 +5,7 @@ type BrandMarkProps = {
 export function BrandMark({ journey = false }: BrandMarkProps) {
   return (
     <span className={`brand-monogram${journey ? " brand-monogram--journey" : ""}`} aria-hidden="true">
-      <span className="brand-monogram__letters"><b>T</b><b>P</b></span>
-      <i />
+      <img src={`${import.meta.env.BASE_URL}brand-robot.png`} alt="" />
     </span>
   );
 }

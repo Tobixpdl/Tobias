@@ -40,7 +40,7 @@
   will-change: transform;
 }
 
-.brand-monogram--journey { overflow: visible; box-shadow: 0 0 0 7px rgba(46,196,182,.08),0 0 26px rgba(46,196,182,.52),0 12px 25px rgba(3,13,24,.3); }
+.brand-monogram--journey { width: 48px; height: 48px; overflow: visible; filter: drop-shadow(0 0 12px rgba(46,196,182,.58)) drop-shadow(0 12px 20px rgba(3,13,24,.32)); }
 .brand-monogram--journey::after { position: absolute; inset: -7px; border: 1px solid rgba(46,196,182,.24); border-radius: 17px 10px 17px 10px; content: ""; animation: journey-pulse 2.4s ease-out infinite; }
 
 [data-tilt-card] { transform-style: preserve-3d; will-change: transform; }

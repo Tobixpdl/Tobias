@@ -9,10 +9,10 @@ import { BrandMark } from "../BrandMark/BrandMark";
 gsap.registerPlugin(MotionPathPlugin, ScrollTrigger);
 
 const desktopPath =
-  "M 82 40 C 190 180 875 570 655 830 S 145 1140 255 1510 S 860 1770 770 2130 S 150 2440 250 2820 S 850 3160 755 3490 S 240 3830 470 4180 S 790 4390 870 4560";
+  "M 82 42 C 92 175 145 360 315 510 C 500 675 745 700 655 830 S 145 1140 255 1510 S 860 1770 770 2130 S 150 2440 250 2820 S 850 3160 755 3490 S 240 3830 470 4180 S 790 4390 870 4560";
 
 const mobilePath =
-  "M 92 42 C 180 190 900 650 805 910 S 130 1240 190 1580 S 870 1900 820 2240 S 125 2550 180 2920 S 890 3240 820 3570 S 145 3920 260 4210 S 770 4450 850 4570";
+  "M 92 42 C 98 180 145 350 300 520 C 490 720 855 745 805 910 S 130 1240 190 1580 S 870 1900 820 2240 S 125 2550 180 2920 S 890 3240 820 3570 S 145 3920 260 4210 S 770 4450 850 4570";
 
 export function ScrollJourney() {
   const root = useRef<HTMLDivElement>(null);
@@ -64,12 +64,11 @@ export function ScrollJourney() {
           },
           0,
         )
-        .to(coreElement, { rotate: 45, scale: 1.35, duration: 0.12 }, 0.08)
-        .to(coreElement, { rotate: 105, scale: 0.78, duration: 0.13 }, 0.22)
-        .to(coreElement, { rotate: 180, scale: 1.15, duration: 0.14 }, 0.38)
-        .to(coreElement, { rotate: 250, scale: 0.7, duration: 0.12 }, 0.56)
-        .to(coreElement, { rotate: 325, scale: 1.28, duration: 0.14 }, 0.7)
-        .to(coreElement, { rotate: 405, scale: 0.9, duration: 0.15 }, 0.85);
+        .to(coreElement, { rotate: -5, scale: 1.12, duration: 0.16 }, 0.08)
+        .to(coreElement, { rotate: 4, scale: 0.9, duration: 0.16 }, 0.26)
+        .to(coreElement, { rotate: -3, scale: 1.08, duration: 0.16 }, 0.45)
+        .to(coreElement, { rotate: 3, scale: 0.94, duration: 0.16 }, 0.65)
+        .to(coreElement, { rotate: 0, scale: 1, duration: 0.16 }, 0.84);
     }, root);
 
     return () => context.revert();

@@ -46,33 +46,14 @@ main { position: relative; }
 .brand-monogram {
   position: relative;
   display: grid;
-  width: 42px;
-  height: 42px;
+  width: 45px;
+  height: 45px;
   place-items: center;
-  overflow: hidden;
-  color: var(--white);
-  background: linear-gradient(145deg,#1d3048,#0c1727 70%);
-  border: 1px solid rgba(248,250,252,.18);
-  border-radius: 13px 7px 13px 7px;
-  box-shadow: inset 0 1px rgba(255,255,255,.06),0 9px 24px rgba(2,9,18,.18);
-  isolation: isolate;
+  overflow: visible;
+  filter: drop-shadow(0 7px 14px rgba(2,9,18,.24));
 }
 
-.brand-monogram::before { position: absolute; z-index: -1; inset: 5px; border: 1px solid rgba(46,196,182,.18); border-radius: 9px 4px 9px 4px; content: ""; }
-.brand-monogram__letters { position: relative; display: flex; align-items: baseline; font-family: var(--font-display); font-size: .92rem; font-weight: 800; letter-spacing: -.22em; transform: translateX(-1px); }
-.brand-monogram__letters b { font-weight: 800; }
-.brand-monogram__letters b:first-child { position: relative; z-index: 2; color: var(--white); }
-.brand-monogram__letters b:last-child { color: var(--teal); transform: translate(1px,3px); }
-.brand-monogram i {
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  width: 7px;
-  height: 7px;
-  background: var(--orange);
-  border-radius: 2px 4px 2px 4px;
-  box-shadow: 0 0 12px rgba(255,107,53,.7);
-}
+.brand-monogram img { display: block; width: 100%; height: 100%; object-fit: contain; }
 
 .main-nav,
 .main-nav__links {
