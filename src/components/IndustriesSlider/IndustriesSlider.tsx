@@ -56,7 +56,6 @@ const perks: SliderItem[] = [
 type MarqueeRowProps = {
   items: SliderItem[];
   direction: "left" | "right";
-  label: string;
   variant: "industries" | "perks";
 };
 
@@ -70,7 +69,7 @@ function SliderBadge({ item: [Icon, label], hidden = false }: { item: SliderItem
   );
 }
 
-function MarqueeRow({ items, direction, label, variant }: MarqueeRowProps) {
+function MarqueeRow({ items, direction, variant }: MarqueeRowProps) {
   const track = useRef<HTMLDivElement>(null);
   const group = useRef<HTMLDivElement>(null);
   const position = useRef(direction === "left" ? 0 : -1);
@@ -142,10 +141,8 @@ function MarqueeRow({ items, direction, label, variant }: MarqueeRowProps) {
 
   return (
     <div className={`industries-slider__lane industries-slider__lane--${variant}`}>
-      <div className="industries-slider__lane-label"><span>{variant === "industries" ? "01" : "02"}</span>{label}</div>
       <div
         className={`industries-slider__row industries-slider__row--${direction}`}
-        aria-label={label}
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}
@@ -187,8 +184,8 @@ export function IndustriesSlider() {
 
   return (
     <div className="industries-slider">
-      <MarqueeRow items={industries} direction="left" label="Rubros que pueden crecer con una web" variant="industries" />
-      <MarqueeRow items={perks} direction="right" label="Lo que puede incluir tu web" variant="perks" />
+      <MarqueeRow items={industries} direction="left" variant="industries" />
+      <MarqueeRow items={perks} direction="right" variant="perks" />
     </div>
   );
 }

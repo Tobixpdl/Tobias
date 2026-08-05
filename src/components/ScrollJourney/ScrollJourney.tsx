@@ -4,14 +4,15 @@ import { MotionPathPlugin } from "gsap/MotionPathPlugin";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useMediaQuery } from "../../hooks/useMediaQuery";
 import { useReducedMotion } from "../../hooks/useReducedMotion";
+import { BrandMark } from "../BrandMark/BrandMark";
 
 gsap.registerPlugin(MotionPathPlugin, ScrollTrigger);
 
 const desktopPath =
-  "M 900 80 C 720 320 875 610 655 830 S 145 1140 255 1510 S 860 1770 770 2130 S 150 2440 250 2820 S 850 3160 755 3490 S 240 3830 470 4180 S 790 4390 870 4560";
+  "M 82 40 C 190 180 875 570 655 830 S 145 1140 255 1510 S 860 1770 770 2130 S 150 2440 250 2820 S 850 3160 755 3490 S 240 3830 470 4180 S 790 4390 870 4560";
 
 const mobilePath =
-  "M 910 70 C 760 360 900 650 805 910 S 130 1240 190 1580 S 870 1900 820 2240 S 125 2550 180 2920 S 890 3240 820 3570 S 145 3920 260 4210 S 770 4450 850 4570";
+  "M 92 42 C 180 190 900 650 805 910 S 130 1240 190 1580 S 870 1900 820 2240 S 125 2550 180 2920 S 890 3240 820 3570 S 145 3920 260 4210 S 770 4450 850 4570";
 
 export function ScrollJourney() {
   const root = useRef<HTMLDivElement>(null);
@@ -89,7 +90,7 @@ export function ScrollJourney() {
       </svg>
       {!reducedMotion && (
         <div ref={orb} className="journey-orb">
-          <div ref={core} className="journey-orb__core"><i /><span /></div>
+          <div ref={core} className="journey-orb__core"><BrandMark journey /></div>
         </div>
       )}
     </div>

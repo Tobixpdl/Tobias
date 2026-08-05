@@ -16,14 +16,14 @@ export function Hero() {
             <span className="hero-title__line"><span data-hero-line>para hacer <em>crecer</em></span></span>
             <span className="hero-title__line"><span data-hero-line><em>tu negocio.</em></span></span>
           </h1>
-          <p className="hero__lead" data-hero-copy>Creo sitios rápidos, claros y adaptados a celulares para que tus clientes encuentren lo que ofrecés, te contacten, hagan pedidos o compren.</p>
+          <p className="hero__lead" data-hero-copy>Creo sitios rápidos y claros para que tus clientes encuentren lo que ofrecés y te contacten.</p>
           <div className="hero__actions" data-hero-actions>
             <a className="button button--primary" href={whatsappUrl()} target="_blank" rel="noopener noreferrer">Pedí tu cotización gratis <ArrowUpRight aria-hidden="true" /></a>
             <a className="button button--ghost" href="#planes">Ver planes <ArrowDown aria-hidden="true" /></a>
           </div>
           <div className="hero__price" data-hero-meta>
             <CheckCircle2 aria-hidden="true" />
-            <p><strong>Desde {formatPrice(siteConfig.startingPrice)}</strong><span>Pago único · Sin abono mensual obligatorio</span></p>
+            <p><strong>Desde {formatPrice(siteConfig.startingPrice)}</strong><span>Pago único · Sin abono mensual</span></p>
           </div>
           <p className="hero__note" data-hero-meta>Cotización sin cargo.</p>
         </div>
@@ -49,7 +49,6 @@ export function Hero() {
           <span className="stage-orbit stage-orbit--two" />
         </div>
       </div>
-      <div className="hero__scroll" aria-hidden="true"><span />Recorré el sitio</div>
     </section>
   );
 }

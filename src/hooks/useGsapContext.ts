@@ -118,11 +118,10 @@ export function useGsapContext(root: RefObject<HTMLElement | null>) {
       gsap.utils.toArray<HTMLElement>("[data-stagger]").forEach((container) => {
         const isServices = container.classList.contains("services__list");
         const isProcess = container.classList.contains("process__steps");
-        const isBenefits = container.classList.contains("benefits__grid");
         gsap.from(container.children, {
           x: isServices || isProcess ? 46 : 0,
           y: isServices || isProcess ? 0 : 54,
-          rotate: isBenefits ? (index: number) => (index % 2 ? 1.5 : -1.5) : 0,
+          rotate: 0,
           rotateY: container.classList.contains("plans__grid") ? -8 : 0,
           opacity: 0,
           filter: "blur(7px)",
@@ -147,15 +146,6 @@ export function useGsapContext(root: RefObject<HTMLElement | null>) {
           },
         );
       });
-
-      const interfacePanel = root.current?.querySelector<HTMLElement>(".interface-panel");
-      if (interfacePanel) {
-        gsap.fromTo(
-          interfacePanel,
-          { yPercent: 8, rotate: -2.4 },
-          { yPercent: -8, rotate: 1.3, ease: "none", scrollTrigger: { trigger: ".services", start: "top bottom", end: "bottom top", scrub: 1.1 } },
-        );
-      }
 
       const portfolioViewport = root.current?.querySelector<HTMLElement>(".portfolio__viewport");
       if (portfolioViewport) {

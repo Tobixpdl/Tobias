@@ -1,5 +1,6 @@
 import { Menu, MessageCircle, X } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { BrandMark } from "../BrandMark/BrandMark";
 import { siteConfig } from "../../config/site";
 import { useActiveSection } from "../../hooks/useActiveSection";
 import { whatsappUrl } from "../../utils/whatsapp";
@@ -44,7 +45,7 @@ export function Header() {
     <header className={`site-header${scrolled ? " site-header--scrolled" : ""}`}>
       <div className="site-header__inner shell">
         <a className="brand" href="#inicio" aria-label={`${siteConfig.brandName}, ir al inicio`} onClick={() => setOpen(false)}>
-          <span className="brand__mark" aria-hidden="true"><i />T</span>
+          <BrandMark />
           <span className="brand__name">{siteConfig.brandName}</span>
         </a>
 

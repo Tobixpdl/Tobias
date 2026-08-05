@@ -176,7 +176,6 @@ export function Portfolio() {
           ))}
         </div>
         {!reducedMotion && <span className="portfolio__autoplay" key={active}><i /></span>}
-        <p>Tocá el proyecto central para abrir su ficha</p>
       </div>
 
       {selectedProject && <ProjectModal project={selectedProject} onClose={closeModal} />}
