@@ -60,7 +60,7 @@ export const projects: Project[] = [
   },
   {
     id: "servicio-tecnico",
-    name: "Servicio Técnico",
+    name: "Servicio Tecnico",
     category: "Oficios",
     description: "Servicios, zonas de cobertura y pedidos de presupuesto.",
     desktopImage: projectAsset("servicio-tecnico-desktop.png"),

@@ -9,7 +9,7 @@ $projects = @(
   @{ Slug="cafe-norte"; Name="CAFÉ NORTE"; Kicker="CAFÉ DE ESPECIALIDAD"; Bg="#26221D"; Accent="#C99A63"; Soft="#F4EBDD" },
   @{ Slug="dulce-atelier"; Name="DULCE ATELIER"; Kicker="PASTELERÍA ARTESANAL"; Bg="#382832"; Accent="#E9A7B9"; Soft="#FFF1F4" },
   @{ Slug="estudio-profesional"; Name="ESTUDIO NORTE"; Kicker="ASESORAMIENTO PROFESIONAL"; Bg="#152437"; Accent="#78A9D1"; Soft="#E9F2F8" },
-  @{ Slug="servicio-tecnico"; Name="SERVICIO TÉCNICO"; Kicker="SOLUCIONES EN EL DÍA"; Bg="#122E2D"; Accent="#2EC4B6"; Soft="#E8F7F4" },
+  @{ Slug="servicio-tecnico"; Name="SERVICIO TECNICO"; Kicker="SOLUCIONES EN EL DÍA"; Bg="#122E2D"; Accent="#2EC4B6"; Soft="#E8F7F4" },
   @{ Slug="comercio-local"; Name="MERCADO LOCAL"; Kicker="PRODUCTOS SELECCIONADOS"; Bg="#302A18"; Accent="#D4AF55"; Soft="#F7F1DF" }
 )
 
