@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
-import { refreshAfterAssets, smoothEase } from "../utils/animation";
+import { refreshAfterAssets } from "../utils/animation";
 import { useReducedMotion } from "./useReducedMotion";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -11,18 +11,21 @@ export function useLenis() {
   const reducedMotion = useReducedMotion();
 
   useEffect(() => {
-    document.documentElement.classList.toggle("is-reduced-motion", reducedMotion);
+    document.documentElement.classList.toggle(
+      "is-reduced-motion",
+      reducedMotion,
+    );
 
     if (reducedMotion) {
       ScrollTrigger.refresh();
-      return () => document.documentElement.classList.remove("is-reduced-motion");
+      return () =>
+        document.documentElement.classList.remove("is-reduced-motion");
     }
 
     const lenis = new Lenis({
       anchors: true,
       autoRaf: false,
-      duration: 1.05,
-      easing: smoothEase,
+      lerp: 0.1,
       smoothWheel: true,
       syncTouch: false,
       touchMultiplier: 1.05,
@@ -32,6 +35,9 @@ export function useLenis() {
     const updateScrollTrigger = () => ScrollTrigger.update();
     const refreshScrollTrigger = () => ScrollTrigger.refresh();
     const raf = (time: number) => lenis.raf(time * 1000);
+    const navigatePortfolio = (event: Event) =>
+      lenis.scrollTo((event as CustomEvent<number>).detail, { duration: 0.65 });
+    window.addEventListener("portfolio:navigate", navigatePortfolio);
 
     lenis.on("scroll", updateScrollTrigger);
     gsap.ticker.add(raf);
@@ -47,6 +53,7 @@ export function useLenis() {
       gsap.ticker.lagSmoothing(500, 33);
       window.removeEventListener("layout:changed", refreshScrollTrigger);
       lenis.destroy();
+      window.removeEventListener("portfolio:navigate", navigatePortfolio);
       document.documentElement.classList.remove("is-reduced-motion");
     };
   }, [reducedMotion]);

@@ -12,7 +12,7 @@ export function useGsapContext(root: RefObject<HTMLElement | null>) {
       gsap
         .timeline({ defaults: { ease: "power3.out", duration: 0.65 } })
         .from("[data-hero-eyebrow]", { opacity: 0, x: -12 })
-        .from("[data-hero-line]", { yPercent: 105, stagger: 0.09 }, 0.12)
+        .from("[data-hero-line]", { y: 24, opacity: 0, stagger: 0.09 }, 0.12)
         .from(
           "[data-hero-copy], [data-hero-actions], [data-hero-meta]",
           { opacity: 0, y: 12, stagger: 0.08 },
@@ -41,6 +41,56 @@ export function useGsapContext(root: RefObject<HTMLElement | null>) {
             scrollTrigger: { trigger: child, start: "top 95%", once: true },
           }),
         );
+      });
+      gsap.fromTo(
+        ".hero__work",
+        { y: 0 },
+        {
+          y: -35,
+          ease: "none",
+          scrollTrigger: {
+            trigger: ".hero",
+            start: "top top",
+            end: "bottom top",
+            scrub: true,
+          },
+        },
+      );
+      gsap.fromTo(
+        ".hero__signature",
+        { rotation: -2 },
+        {
+          rotation: 1,
+          ease: "none",
+          scrollTrigger: {
+            trigger: ".hero",
+            start: "top top",
+            end: "bottom top",
+            scrub: true,
+          },
+        },
+      );
+      gsap.from(".process__steps", {
+        opacity: 0.7,
+        y: 20,
+        ease: "none",
+        scrollTrigger: {
+          trigger: "#proceso",
+          start: "top 85%",
+          end: "top 45%",
+          scrub: true,
+        },
+      });
+      gsap.from(".footer__cta", {
+        x: -20,
+        opacity: 0.5,
+        ease: "none",
+        scrollTrigger: {
+          trigger: ".footer",
+          start: "top 90%",
+          end: "top 55%",
+          scrub: true,
+        },
       });
     }, root);
     return () => ctx.revert();
