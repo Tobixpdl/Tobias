@@ -26,6 +26,7 @@ export function ScrollJourney() {
   const orb = useRef<HTMLDivElement>(null),
     core = useRef<HTMLDivElement>(null),
     bob = useRef<HTMLDivElement>(null),
+    spin = useRef<HTMLDivElement>(null),
     armL = useRef<SVGGElement>(null),
     armR = useRef<SVGGElement>(null),
     pointer = useRef<SVGGElement>(null);
@@ -37,6 +38,7 @@ export function ScrollJourney() {
       !orb.current ||
       !core.current ||
       !bob.current ||
+      !spin.current ||
       !armL.current ||
       !armR.current ||
       !pointer.current
@@ -44,6 +46,7 @@ export function ScrollJourney() {
       return;
 
     const bobEl = bob.current;
+    const spinEl = spin.current;
     const armLeft = armL.current;
     const armRight = armR.current;
     const pointerEl = pointer.current;
@@ -118,6 +121,7 @@ export function ScrollJourney() {
       const exit = Math.max(entry, max - (innerHeight - headerBottom) * 0.55);
 
       // Arms and pointer start tucked away; poses are driven by the timeline.
+      gsap.set(spinEl, { rotation: 0, y: 0 });
       gsap.set(armLeft, {
         svgOrigin: PIVOT_LEFT,
         rotation: ARM_REST.left,
@@ -230,6 +234,48 @@ export function ScrollJourney() {
         exit / max + ((max - exit) / max) * 0.12,
       );
 
+      // Wave hello right after reaching the rail: a little hop and three waves.
+      const waveAt = entry / max + 0.008;
+      timeline.to(
+        armRight,
+        { rotation: 205, duration: 0.01, ease: "sine.out" },
+        waveAt,
+      );
+      timeline.to(
+        armLeft,
+        { rotation: -45, duration: 0.01, ease: "sine.out" },
+        waveAt,
+      );
+      timeline.to(spinEl, { y: -6, duration: 0.008, ease: "sine.out" }, waveAt);
+      timeline.to(
+        spinEl,
+        { y: 0, duration: 0.012, ease: "sine.in" },
+        waveAt + 0.008,
+      );
+      for (let w = 0; w < 3; w += 1) {
+        timeline.to(
+          armRight,
+          { rotation: 172, duration: 0.008, ease: "sine.inOut" },
+          waveAt + 0.01 + w * 0.016,
+        );
+        timeline.to(
+          armRight,
+          { rotation: 205, duration: 0.008, ease: "sine.inOut" },
+          waveAt + 0.018 + w * 0.016,
+        );
+      }
+      const waveEnd = waveAt + 0.01 + 3 * 0.016;
+      timeline.to(
+        armRight,
+        { rotation: ARM_REST.right, duration: 0.012, ease: "sine.inOut" },
+        waveEnd,
+      );
+      timeline.to(
+        armLeft,
+        { rotation: ARM_REST.left, duration: 0.012, ease: "sine.inOut" },
+        waveEnd,
+      );
+
       // Presenting moments: the character raises its pointer as key sections
       // pass by, then puts it away. Timings are scroll progress (0..1).
       const chapterProgress = (selector: string): number | null => {
@@ -238,25 +284,29 @@ export function ScrollJourney() {
         const rect = el.getBoundingClientRect();
         const center = rect.top + scrollY + rect.height / 2;
         return gsap.utils.clamp(
-          entry / max + 0.045,
+          entry / max + 0.12,
           exit / max - 0.045,
           (center - restY) / max,
         );
       };
-      const chapters: Chapter[] = [];
+      type ChapterKind = "present" | "shrug";
+      const chapters: (Chapter & { kind: ChapterKind })[] = [];
       const addChapter = (
         selector: string,
         poseRight: number,
         poseLeft: number,
         sweep: boolean,
+        kind: ChapterKind = "present",
       ) => {
         const progress = chapterProgress(selector);
         if (progress == null) return;
-        chapters.push({ progress, poseRight, poseLeft, sweep });
+        chapters.push({ progress, poseRight, poseLeft, sweep, kind });
       };
       addChapter("#servicios", 225, 100, false);
       addChapter("#trabajos", 270, -30, finePointer);
       addChapter("#contacto", -45, -30, false);
+      // A playful "who knows?" shrug at the FAQ, pointer stays tucked away.
+      if (finePointer) addChapter("#preguntas", 250, 110, false, "shrug");
       chapters.sort((a, b) => a.progress - b.progress);
       const MIN_GAP = 0.08;
       for (let i = 1; i < chapters.length; i += 1) {
@@ -284,11 +334,41 @@ export function ScrollJourney() {
           { rotation: ch.poseLeft, duration: raise, ease: "sine.inOut" },
           tRaise,
         );
+        // A tiny hop as it lifts its arm.
         timeline!.to(
-          pointerEl,
-          { scaleY: 1, duration: raise, ease: "sine.out" },
+          spinEl,
+          { y: -6, duration: raise * 0.6, ease: "sine.out" },
           tRaise,
         );
+        timeline!.to(
+          spinEl,
+          { y: 0, duration: raise * 0.8, ease: "sine.in" },
+          tRaise + raise * 0.6,
+        );
+        if (ch.kind === "present") {
+          timeline!.to(
+            pointerEl,
+            { scaleY: 1, duration: raise, ease: "sine.out" },
+            tRaise,
+          );
+        } else {
+          // Shrug: curious tilt wiggle instead of the pointer.
+          timeline!.to(
+            spinEl,
+            { rotation: "+=10", duration: 0.01, ease: "sine.inOut" },
+            tHold,
+          );
+          timeline!.to(
+            spinEl,
+            { rotation: "-=20", duration: 0.012, ease: "sine.inOut" },
+            tHold + 0.01,
+          );
+          timeline!.to(
+            spinEl,
+            { rotation: "+=10", duration: 0.01, ease: "sine.inOut" },
+            tHold + 0.022,
+          );
+        }
         if (ch.sweep) {
           timeline!.to(
             armRight,
@@ -315,12 +395,42 @@ export function ScrollJourney() {
           { rotation: ARM_REST.left, duration: lower, ease: "sine.inOut" },
           tLower,
         );
+        if (ch.kind === "present") {
+          timeline!.to(
+            pointerEl,
+            { scaleY: 0, duration: lower, ease: "sine.in" },
+            tLower,
+          );
+        }
+      });
+
+      // Barrel rolls at neutral moments of the ride (kept clear of chapters).
+      const railSpan = exit / max - entry / max;
+      const spinFractions = finePointer ? [0.32, 0.62] : [0.45];
+      spinFractions.forEach((f) => {
+        let t = entry / max + railSpan * f;
+        for (const ch of chapters) {
+          if (Math.abs(t - ch.progress) < 0.055) t = ch.progress + 0.055;
+        }
+        t = Math.min(t, exit / max - 0.05);
         timeline!.to(
-          pointerEl,
-          { scaleY: 0, duration: lower, ease: "sine.in" },
-          tLower,
+          spinEl,
+          { rotation: "+=360", duration: 0.035, ease: "sine.inOut" },
+          t,
         );
       });
+
+      // Finale spin on the way back to the footer logo.
+      const finaleAt = exit / max + (1 - exit / max) * 0.3;
+      timeline.to(
+        spinEl,
+        {
+          rotation: "+=360",
+          duration: (1 - exit / max) * 0.5,
+          ease: "sine.inOut",
+        },
+        finaleAt,
+      );
 
       trigger = ScrollTrigger.create({
         start: 0,
@@ -371,12 +481,13 @@ export function ScrollJourney() {
       <div ref={orb} className="journey-orb">
         <div ref={core} className="journey-orb__core">
           <div ref={bob} className="journey-bob">
-            <BrandMark journey />
-            <svg
-              className="journey-limbs"
-              viewBox="0 0 100 100"
-              focusable="false"
-            >
+            <div ref={spin} className="journey-spin">
+              <BrandMark journey />
+              <svg
+                className="journey-limbs"
+                viewBox="0 0 100 100"
+                focusable="false"
+              >
               <g ref={armL} className="journey-arm journey-arm--left">
                 <rect
                   x="29.6"
@@ -412,6 +523,7 @@ export function ScrollJourney() {
                 <circle cx="67.9" cy="72.6" r="3.4" fill="#0b0b0c" />
               </g>
             </svg>
+            </div>
           </div>
         </div>
       </div>

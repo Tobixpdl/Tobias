@@ -29,6 +29,12 @@
   will-change: transform;
 }
 
+.journey-spin {
+  position: absolute;
+  inset: 0;
+  will-change: transform;
+}
+
 .journey-limbs {
   position: absolute;
   inset: 0;
