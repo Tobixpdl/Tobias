@@ -2,96 +2,179 @@ import { useLayoutEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { MotionPathPlugin } from "gsap/MotionPathPlugin";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useMediaQuery } from "../../hooks/useMediaQuery";
 import { useReducedMotion } from "../../hooks/useReducedMotion";
 import { BrandMark } from "../BrandMark/BrandMark";
-
 gsap.registerPlugin(MotionPathPlugin, ScrollTrigger);
 
-const desktopPath =
-  "M 82 42 C 92 175 145 360 315 510 C 500 675 745 700 655 830 S 145 1140 255 1510 S 860 1770 770 2130 S 150 2440 250 2820 S 850 3160 755 3490 S 240 3830 470 4180 S 790 4390 870 4560";
-
-const mobilePath =
-  "M 92 42 C 98 180 145 350 300 520 C 490 720 855 745 805 910 S 130 1240 190 1580 S 870 1900 820 2240 S 125 2550 180 2920 S 890 3240 820 3570 S 145 3920 260 4210 S 770 4450 850 4570";
-
 export function ScrollJourney() {
-  const root = useRef<HTMLDivElement>(null);
-  const path = useRef<SVGPathElement>(null);
   const orb = useRef<HTMLDivElement>(null);
   const core = useRef<HTMLDivElement>(null);
-  const mobile = useMediaQuery("(max-width: 700px)");
-  const reducedMotion = useReducedMotion();
-
+  const reduced = useReducedMotion();
   useLayoutEffect(() => {
-    if (!root.current || !path.current || !orb.current || !core.current || reducedMotion) return;
-    const startSection = document.getElementById("inicio");
-    const endSection = document.getElementById("contacto");
-    if (!startSection || !endSection) return;
-    const pathElement = path.current;
-    const orbElement = orb.current;
-    const coreElement = core.current;
-
-    const context = gsap.context(() => {
-      const timeline = gsap.timeline({
-        defaults: { ease: "none" },
+    if (reduced || !orb.current || !core.current) return;
+    const origin = document.querySelector<HTMLElement>(
+      '[data-journey-dock="origin"]',
+    );
+    const destination = document.querySelector<HTMLElement>(
+      '[data-journey-dock="destination"]',
+    );
+    if (!origin || !destination) return;
+    const image = origin.querySelector("img");
+    const endImage = destination.querySelector("img");
+    const sprite = orb.current;
+    const face = core.current;
+    const position = { x: 0, y: 0 };
+    let timeline: gsap.core.Timeline | undefined;
+    let frame = 0;
+    let previousWidth = window.innerWidth;
+    let disposed = false;
+    const build = () => {
+      const progress = timeline?.scrollTrigger?.progress ?? 0;
+      timeline?.scrollTrigger?.kill();
+      timeline?.kill();
+      const start = origin.getBoundingClientRect();
+      const finish = destination.getBoundingClientRect();
+      const small = window.innerWidth < 700;
+      const size = start.width;
+      const travelScale = small ? 0.66 : window.innerWidth < 1120 ? 0.55 : 1;
+      const startX = start.left + start.width / 2;
+      const startY = start.top + start.height / 2;
+      const endX = finish.left + finish.width / 2;
+      const endY = finish.top + window.scrollY + finish.height / 2;
+      const margin =
+        (document.documentElement.clientWidth -
+          document.querySelector<HTMLElement>(".shell")!.clientWidth) /
+        2;
+      const rail = margin / 2;
+      const headerBottom = origin
+        .closest("header")!
+        .getBoundingClientRect().bottom;
+      const maxScroll = ScrollTrigger.maxScroll(window);
+      const stops = [
+        "servicios",
+        "trabajos",
+        "planes",
+        "preguntas",
+        "contacto",
+      ].map((id) => {
+        const rect = document.getElementById(id)!.getBoundingClientRect();
+        return { x: rail, y: rect.top + window.scrollY + 100 };
+      });
+      gsap.set(sprite, {
+        width: size,
+        height: size,
+        xPercent: -50,
+        yPercent: -50,
+        opacity: 0,
+        scale: 1,
+      });
+      timeline = gsap.timeline({
         scrollTrigger: {
-          trigger: startSection,
-          endTrigger: endSection,
-          start: "top top",
-          end: "bottom bottom",
+          start: 0,
+          end: () => ScrollTrigger.maxScroll(window),
+          scrub: 0.35,
           invalidateOnRefresh: true,
-          scrub: 1.05,
+          onUpdate: (self) => {
+            const traveling = self.progress > 0.0001 && self.progress < 0.9999;
+            gsap.set(sprite, { opacity: traveling ? 1 : 0 });
+            gsap.set(image, { opacity: self.progress > 0.0001 ? 0 : 1 });
+            gsap.set(endImage, { opacity: self.progress < 0.9999 ? 0 : 1 });
+          },
         },
       });
-
       timeline
-        .fromTo(
-          pathElement,
-          { strokeDasharray: 1, strokeDashoffset: 1 },
-          { strokeDashoffset: 0, duration: 1 },
-          0,
-        )
         .to(
-          orbElement,
+          position,
           {
-            duration: 1,
             motionPath: {
-              align: pathElement,
-              alignOrigin: [0.5, 0.5],
+              path: [
+                { x: startX, y: startY },
+                { x: rail, y: startY + 170 },
+                ...stops,
+                { x: rail, y: endY - 100 },
+                { x: endX, y: endY },
+              ],
+              curviness: 0.4,
               autoRotate: false,
-              path: pathElement,
+            },
+            duration: 1,
+            ease: "none",
+            onUpdate: () => {
+              const naturalY = position.y - window.scrollY;
+              const blend = gsap.utils.clamp(
+                0,
+                1,
+                Math.min(window.scrollY, maxScroll - window.scrollY) / 180,
+              );
+              const visibleY = gsap.utils.clamp(
+                headerBottom + 24,
+                window.innerHeight - 110,
+                naturalY,
+              );
+              gsap.set(sprite, {
+                x: position.x,
+                y: naturalY + (visibleY - naturalY) * blend,
+              });
             },
           },
           0,
         )
-        .to(coreElement, { rotate: -5, scale: 1.12, duration: 0.16 }, 0.08)
-        .to(coreElement, { rotate: 4, scale: 0.9, duration: 0.16 }, 0.26)
-        .to(coreElement, { rotate: -3, scale: 1.08, duration: 0.16 }, 0.45)
-        .to(coreElement, { rotate: 3, scale: 0.94, duration: 0.16 }, 0.65)
-        .to(coreElement, { rotate: 0, scale: 1, duration: 0.16 }, 0.84);
-    }, root);
-
-    return () => context.revert();
-  }, [mobile, reducedMotion]);
-
+        .to(
+          sprite,
+          { scale: travelScale, duration: 0.04, ease: "power2.out" },
+          0,
+        )
+        .to(sprite, { scale: 1, duration: 0.03, ease: "power2.inOut" }, 0.97)
+        .to(
+          face,
+          { rotation: -7, scaleX: 0.96, scaleY: 1.04, duration: 0.12 },
+          0.03,
+        )
+        .to(face, { rotation: 5, scaleX: 1, scaleY: 1, duration: 0.18 }, 0.25)
+        .to(face, { rotation: -4, duration: 0.2 }, 0.53)
+        .to(face, { rotation: 0, duration: 0.15 }, 0.85);
+      gsap.set(image, { opacity: progress > 0.0001 ? 0 : 1 });
+      gsap.set(endImage, { opacity: progress < 0.9999 ? 0 : 1 });
+      timeline.progress(progress);
+      ScrollTrigger.refresh();
+    };
+    const schedule = () => {
+      if (disposed) return;
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(build);
+    };
+    const resize = () => {
+      if (window.innerWidth !== previousWidth) {
+        previousWidth = window.innerWidth;
+        schedule();
+      }
+    };
+    const observer = new ResizeObserver(schedule);
+    observer.observe(document.querySelector("main")!);
+    observer.observe(destination);
+    window.addEventListener("resize", resize);
+    window.addEventListener("layout:changed", schedule);
+    document.fonts.ready.then(schedule);
+    build();
+    return () => {
+      disposed = true;
+      cancelAnimationFrame(frame);
+      observer.disconnect();
+      window.removeEventListener("resize", resize);
+      window.removeEventListener("layout:changed", schedule);
+      timeline?.scrollTrigger?.kill();
+      timeline?.kill();
+      gsap.set([image, endImage], { clearProps: "opacity" });
+    };
+  }, [reduced]);
+  if (reduced) return null;
   return (
-    <div ref={root} className={`scroll-journey${reducedMotion ? " scroll-journey--static" : ""}`} aria-hidden="true">
-      <svg className="scroll-journey__svg" viewBox="0 0 1000 4640" preserveAspectRatio="none">
-        <defs>
-          <linearGradient id="journey-gradient" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stopColor="#ff6b35" />
-            <stop offset="0.48" stopColor="#2ec4b6" />
-            <stop offset="1" stopColor="#ff8a5f" />
-          </linearGradient>
-        </defs>
-        <path className="scroll-journey__ghost" d={mobile ? mobilePath : desktopPath} pathLength="1" />
-        <path ref={path} className="scroll-journey__path" d={mobile ? mobilePath : desktopPath} pathLength="1" />
-      </svg>
-      {!reducedMotion && (
-        <div ref={orb} className="journey-orb">
-          <div ref={core} className="journey-orb__core"><BrandMark journey /></div>
+    <div className="scroll-journey" aria-hidden="true">
+      <div ref={orb} className="journey-orb">
+        <div ref={core} className="journey-orb__core">
+          <BrandMark journey />
         </div>
-      )}
+      </div>
     </div>
   );
 }

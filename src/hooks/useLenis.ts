@@ -19,7 +19,7 @@ export function useLenis() {
     }
 
     const lenis = new Lenis({
-      anchors: { offset: -78 },
+      anchors: true,
       autoRaf: false,
       duration: 1.05,
       easing: smoothEase,

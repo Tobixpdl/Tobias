@@ -9,7 +9,7 @@ export function Footer() {
     <footer className="footer">
       <div className="shell footer__top">
         <div className="footer__brand">
-          <a className="brand" href="#inicio"><BrandMark /><span className="brand__name">{siteConfig.brandName}</span></a>
+          <a className="brand" href="#inicio"><BrandMark dock="destination" /><span className="brand__name">{siteConfig.brandName}</span></a>
           <p>Sitios web para comercios, profesionales y emprendimientos.</p>
         </div>
         <div className="footer__cta">

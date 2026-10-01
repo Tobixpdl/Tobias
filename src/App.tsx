@@ -1,6 +1,5 @@
 import { useRef } from "react";
 import { Header } from "./components/Header/Header";
-import { MotionPreferenceToggle } from "./components/MotionPreferenceToggle/MotionPreferenceToggle";
 import { ScrollJourney } from "./components/ScrollJourney/ScrollJourney";
 import { WhatsAppButton } from "./components/WhatsAppButton/WhatsAppButton";
 import { useGsapContext } from "./hooks/useGsapContext";
@@ -23,17 +22,16 @@ export default function App() {
     <div ref={root} className="site-wrap">
       <Header />
       <main id="contenido">
-        <ScrollJourney />
         <Hero />
         <Industries />
         <Services />
-        <Plans />
         <Portfolio />
+        <Plans />
         <FAQ />
         <Contact />
       </main>
       <Footer />
-      <MotionPreferenceToggle />
+      <ScrollJourney />
       <WhatsAppButton />
     </div>
   );

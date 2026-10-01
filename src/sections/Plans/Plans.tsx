@@ -17,8 +17,8 @@ export function Plans() {
     const context = gsap.context(() => {
       gsap.fromTo(
         ".plan-card",
-        { y: 38, rotateY: -7, opacity: 0, filter: "blur(7px)" },
-        { y: 0, rotateY: 0, opacity: 1, filter: "blur(0px)", duration: 0.68, stagger: 0.09, ease: "power3.out", clearProps: "transform,filter,opacity" },
+        { y: 38, opacity: 0 },
+        { y: 0, rotateY: 0, opacity: 1, duration: 0.68, stagger: 0.09, ease: "power3.out", clearProps: "transform,filter,opacity" },
       );
     }, additional);
     return () => context.revert();

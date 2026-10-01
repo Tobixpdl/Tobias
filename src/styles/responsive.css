@@ -5,7 +5,6 @@
   .hero__grid { grid-template-columns: minmax(0,1.08fr) minmax(340px,.92fr); }
   .services__process { gap: 24px; }
   .faq__layout { gap: 6vw; }
-  .project-card { flex-basis: calc(100vw - 96px); }
   .payment-note { grid-template-columns: 55px 1fr; }
   .payment-note ul { grid-column: 2; }
 }
@@ -21,8 +20,6 @@
   .main-nav__cta { width: 100%; }
   .hero__grid { grid-template-columns: 1fr .66fr; }
   .hero h1 { font-size: clamp(3.2rem, 8.2vw, 5.5rem); }
-  .hero__stage { min-height: 540px; }
-  .stage-card { display: none; }
   .services__list { grid-template-columns: repeat(2,1fr); }
   .services__process { grid-template-columns: 1fr; }
   .services__process-intro { display: flex; align-items: end; justify-content: space-between; gap: 28px; }
@@ -43,8 +40,6 @@
 @media (max-width: 800px) {
   .hero__grid { min-height: auto; padding-top: 132px; padding-bottom: 96px; grid-template-columns: 1fr; }
   .hero__content { max-width: 720px; }
-  .hero__stage { width: min(100%, 620px); min-height: 470px; margin: 8px auto 0; }
-  .hero__scroll { display: none; }
   .section { padding-block: 105px; }
   .section-title { margin-bottom: 48px; }
   .plans__grid { grid-template-columns: 1fr; }
@@ -56,15 +51,6 @@
   .portfolio__header .section-title { margin-bottom: 0; }
   .carousel-controls { margin-bottom: 35px; }
   .portfolio { min-height: auto; padding-bottom: 105px; }
-  .portfolio__viewport { height: 680px; }
-  .portfolio__track { gap: 32px; }
-  .project-card { flex-basis: calc(100vw - 48px); height: 620px; }
-  .project-card__wordmark { top: 84px; font-size: clamp(4.4rem,14vw,7rem); }
-  .device--desktop { top: 27%; left: 10%; width: 76%; }
-  .device--mobile { right: 5%; bottom: 12%; width: 21%; }
-  .project-card__feature--2 { right: 2%; }
-  .portfolio__navigation { grid-template-columns: 1fr auto; }
-  .portfolio__navigation > p { display: none; }
   .project-modal { padding: 18px; }
   .project-modal__panel { max-height: calc(100svh - 36px); grid-template-columns: 1fr; }
   .project-modal__visual { min-height: 450px; }
@@ -90,13 +76,6 @@
   .hero__price { align-items: start; }
   .hero__price p { align-items: start; flex-direction: column; }
   .hero__note { margin-left: 33px; }
-  .hero__stage { display: block; min-height: 370px; margin-top: 8px; }
-  .hero-blueprint { width: 96%; border-radius: 18px; transform: translate(-50%,-50%) perspective(1000px) rotateY(-3deg); }
-  .hero-blueprint__bar { height: 38px; }
-  .hero-blueprint__canvas { min-height: 290px; padding: 38px 28px 26px; }
-  .hero-blueprint__cards { margin-top: 30px; }
-  .stage-card { display: none; }
-  .stage-grid { inset: 4% -8%; }
   .industries { padding-block: 22px 27px; }
   .industries__intro p { display: none; }
   .industries-slider { gap: 15px; }
@@ -126,26 +105,6 @@
   .payment-note ul { grid-column: auto; }
   .portfolio__header { gap: 28px; }
   .carousel-controls { width: 100%; margin-bottom: 18px; justify-content: space-between; }
-  .portfolio__viewport { height: 570px; }
-  .portfolio__track { gap: 20px; padding-block: 12px 18px; }
-  .project-card { flex-basis: calc(100vw - 32px); height: 525px; }
-  .project-card__trigger { border-radius: 24px; }
-  .project-card__number { top: 23px; right: 22px; }
-  .project-card__identity { top: 22px; left: 21px; }
-  .project-card__identity strong { max-width: 230px; font-size: .94rem; }
-  .project-card__wordmark { top: 72px; width: 96%; font-size: clamp(3.7rem,18vw,6rem); }
-  .device--desktop { top: 30%; left: 7%; width: 82%; transform: perspective(1000px) rotateY(-7deg) rotateZ(-1deg); }
-  .device--mobile { right: 3%; bottom: 15%; width: 23%; transform: perspective(1000px) rotateY(-10deg) rotateZ(3deg); }
-  .project-card__feature { padding: 7px 9px; font-size: .55rem; }
-  .project-card__feature--1 { top: 28%; left: 3%; }
-  .project-card__feature--2 { top: 48%; right: 1%; }
-  .project-card__feature--3 { display: none; }
-  .project-card__summary { bottom: 23px; left: 21px; max-width: 250px; }
-  .project-card__summary span { display: none; }
-  .project-card__open { right: 20px; bottom: 19px; width: 46px; height: 46px; }
-  .portfolio__navigation { margin-top: 6px; grid-template-columns: 1fr; gap: 18px; }
-  .carousel-dots { justify-content: center; }
-  .portfolio__autoplay { width: 90px; margin-inline: auto; }
   .project-modal { padding: 10px; }
   .project-modal__panel { max-height: calc(100svh - 20px); border-radius: 22px; }
   .project-modal__visual { min-height: 350px; }
@@ -172,8 +131,6 @@
   .footer__bottom { align-items: start; flex-direction: column; gap: 10px; }
   .whatsapp-float { right: 14px; bottom: 14px; width: 54px; height: 54px; }
   .whatsapp-float__tooltip { display: none; }
-  .motion-preference-toggle { left: 14px; bottom: 14px; width: 48px; min-height: 48px; padding: 0; justify-content: center; }
-  .motion-preference-toggle span { display: none; }
 }
 
 @media (max-width: 380px) {
@@ -183,18 +140,12 @@
   .button { padding-inline: 16px; }
   .service-row { grid-template-columns: 27px 1fr; }
   .service-row__icon { display: none; }
-  .portfolio__viewport { height: 520px; }
-  .project-card { flex-basis: calc(100vw - 24px); height: 480px; }
-  .project-card__identity strong { max-width: 185px; }
-  .project-card__wordmark { top: 68px; }
-  .project-card__summary { max-width: 210px; }
   .project-modal__visual { min-height: 305px; }
   .carousel-controls { width: 100%; justify-content: space-between; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .industries-slider { gap: 8px; }
-  html:not(.motion-enabled) .portfolio__autoplay i { animation: none; transform: scaleX(1); }
   html:not(.motion-enabled) .contact__signal::before,
   html:not(.motion-enabled) .contact__signal::after { animation: none; }
 }

@@ -1,53 +1,89 @@
-import { ArrowDown, ArrowUpRight, CheckCircle2, MousePointer2, Sparkles } from "lucide-react";
+import { ArrowDown, ArrowUpRight } from "lucide-react";
 import { siteConfig } from "../../config/site";
 import { formatPrice } from "../../utils/currency";
 import { whatsappUrl } from "../../utils/whatsapp";
+import { projects } from "../../data/projects";
 
 export function Hero() {
+  const featured = projects[2];
   return (
-    <section className="hero" id="inicio" aria-labelledby="hero-title" data-section-tone="dark">
-      <div className="hero__aurora hero__aurora--orange" data-pointer-depth="0.45" aria-hidden="true" />
-      <div className="hero__aurora hero__aurora--teal" data-pointer-depth="0.28" aria-hidden="true" />
-      <div className="hero__grid shell">
+    <section className="hero" id="inicio" aria-labelledby="hero-title">
+      <div className="shell hero__grid">
         <div className="hero__content">
-          <div className="hero__eyebrow" data-hero-eyebrow><span />Sitios web para comercios y profesionales</div>
-          <h1 id="hero-title" aria-label="Una página profesional para hacer crecer tu negocio.">
-            <span className="hero-title__line"><span data-hero-line>Una página profesional</span></span>
-            <span className="hero-title__line"><span data-hero-line>para hacer <em>crecer</em></span></span>
-            <span className="hero-title__line"><span data-hero-line><em>tu negocio.</em></span></span>
+          <p className="hero__eyebrow" data-hero-eyebrow>
+            Diseño & desarrollo web / Tobias Ponce de Leon
+          </p>
+          <h1 id="hero-title">
+            <span className="hero-title__line">
+              <span data-hero-line>Tu negocio.</span>
+            </span>
+            <span className="hero-title__line">
+              <span data-hero-line>Una web</span>
+            </span>
+            <span className="hero-title__line">
+              <span data-hero-line>
+                <em>bien hecha.</em>
+              </span>
+            </span>
           </h1>
-          <p className="hero__lead" data-hero-copy>Creo sitios rápidos y claros para que tus clientes encuentren lo que ofrecés y te contacten.</p>
+          <p className="hero__lead" data-hero-copy>
+            Soy Tobias. Desarrollo sitios para comercios, profesionales y
+            emprendimientos: claros para tus clientes, útiles para tu negocio.
+          </p>
           <div className="hero__actions" data-hero-actions>
-            <a className="button button--primary" href={whatsappUrl()} target="_blank" rel="noopener noreferrer">Pedí tu cotización gratis <ArrowUpRight aria-hidden="true" /></a>
-            <a className="button button--ghost" href="#planes">Ver planes <ArrowDown aria-hidden="true" /></a>
+            <a
+              className="button button--primary"
+              href={whatsappUrl()}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Contame tu idea <ArrowUpRight aria-hidden="true" />
+            </a>
+            <a className="button button--ghost" href="#trabajos">
+              Explorá mis trabajos <ArrowDown aria-hidden="true" />
+            </a>
           </div>
-          <div className="hero__price" data-hero-meta>
-            <CheckCircle2 aria-hidden="true" />
-            <p><strong>Desde {formatPrice(siteConfig.startingPrice)}</strong><span>Pago único · Sin abono mensual</span></p>
-          </div>
-          <p className="hero__note" data-hero-meta>Cotización sin cargo.</p>
+          <p className="hero__price" data-hero-meta>
+            <strong>Desde {formatPrice(siteConfig.startingPrice)}</strong>
+            <span>Pago único · Cotización sin cargo</span>
+          </p>
         </div>
-
-        <div className="hero__stage" data-hero-visual aria-hidden="true">
-          <div className="hero-blueprint">
-            <div className="hero-blueprint__bar"><i /><i /><i /><span>tu-negocio.com</span></div>
-            <div className="hero-blueprint__canvas" data-pointer-depth="0.28">
-              <span className="hero-blueprint__eyebrow" />
-              <span className="hero-blueprint__title" />
-              <span className="hero-blueprint__title hero-blueprint__title--short" />
-              <span className="hero-blueprint__copy" />
-              <span className="hero-blueprint__copy hero-blueprint__copy--short" />
-              <span className="hero-blueprint__button" />
-              <div className="hero-blueprint__cards"><i /><i /><i /></div>
-            </div>
+        <figure className="hero__work" data-hero-visual>
+          <div className="hero__work-label">
+            <span>Una idea llevada a la web</span>
+            <span>01 — 03</span>
           </div>
-          <div className="stage-card stage-card--top" data-pointer-depth="1"><span className="stage-card__dot" />Disponible para nuevos proyectos</div>
-          <div className="stage-card stage-card--bottom" data-pointer-depth="0.8"><b>01</b><span>Diseño<br />responsive</span></div>
-          <div className="stage-card stage-card--cursor" data-pointer-depth="1.3"><MousePointer2 /><span>Claro y simple</span></div>
-          <div className="stage-grid" />
-          <span className="stage-orbit stage-orbit--one"><Sparkles /></span>
-          <span className="stage-orbit stage-orbit--two" />
-        </div>
+          <a
+            href="#trabajos"
+            aria-label="Explorar Dulce Atelier y los demás proyectos"
+          >
+            <img
+              src={featured.desktopImage}
+              width="1440"
+              height="900"
+              alt="Dulce Atelier: diseño de pastelería con tipografía editorial y fotografía de una torta artesanal"
+              fetchPriority="high"
+            />
+            <span className="hero__work-arrow">
+              <ArrowUpRight aria-hidden="true" />
+            </span>
+          </a>
+          <figcaption>
+            <strong>Dulce Atelier</strong>
+            <span>Pastelería / Catálogo & encargos</span>
+          </figcaption>
+          <p className="hero__signature">
+            Cada negocio tiene su forma.
+            <br />
+            Su web también.
+          </p>
+        </figure>
+      </div>
+      <div className="shell hero__foot">
+        <span>Diseñado para conectar con tus clientes.</span>
+        <a href="#servicios">
+          Del primer mensaje a tu web online <ArrowDown aria-hidden="true" />
+        </a>
       </div>
     </section>
   );

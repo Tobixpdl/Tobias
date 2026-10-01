@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://tobias-ponce-web.micakunischiprof.chatgpt.site/sitemap.xml
+Sitemap: https://tobixpdl.github.io/Tobias/sitemap.xml
